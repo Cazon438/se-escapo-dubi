@@ -329,21 +329,111 @@ function styleSentence(rng,p){return pick(rng,LOCAL_SPEECH[p]||['',''])}
 function withAccent(rng,province,text){const accent=styleSentence(rng,province);return accent?`${accent} ${text}`:text;}
 function optionalQuestions(rng,bank,count){return shuffle(rng,bank).slice(0,count).map(([label,answer],i)=>({id:`q${i}`,label,answer,cost:pick(rng,[10,15,20])}));}
 function leadQuestions(rng,nextCity,clue){const kind=MAIN_CLUE_CATEGORY(clue);const extras=EXTRA_CLUES[nextCity.id];const pool=shuffle(rng,extras.filter(e=>e.category!==kind));const selected=pool.length>=2?pool.slice(0,2):shuffle(rng,extras).slice(0,2);return selected.map((extra,i)=>({id:`q${i}`,label:pick(rng,MAIN_QUESTION_TEXT[extra.category]),answer:pick(rng,[`También mencionó ${extra.text}.`,`Sí, recuerdo que hablaba de ${extra.text}.`,`Me acuerdo de otra cosa: ${extra.text}.`]),cost:pick(rng,[10,15,20,25]),category:extra.category}));}
+// Cada ciudad tiene diez pistas principales posibles (3 originales y 7 nuevas).
+// Las dos pistas indirectas se reparten entre los testigos secundarios, sin preguntas adicionales.
+const DESTINATION_STORIES_RAW=`
+c00|una escollera donde descansan lobos marinos|una playa llamada Varese y sus paseos|el puerto donde vuelven las lanchas pesqueras|un festival internacional de cine frente al mar|los alfajores que venden cerca de la rambla|una escultura de dos lobos marinos de piedra|el Torreón del Monje sobre la costa|una reposera plegable y una sombrilla|un bolso con ojotas y arena
+c01|una catedral de ladrillo frente a la plaza Moreno|un museo de fósiles dentro de un gran bosque|un partido de Estudiantes en el estadio UNO|la rivalidad entre Estudiantes y Gimnasia|el Teatro Argentino y una ciudad de estudiantes|el Paseo del Bosque y sus senderos|una capital provincial que fue planificada desde cero|una bufanda roja y blanca del Pincha|un folleto de fósiles y museos
+c02|la Bombonera vestida de azul y amarillo|las casas de chapa pintadas de colores junto al puerto|el arte de Quinquela Martín junto al Riachuelo|el antiguo puente transbordador sobre el río|los conventillos donde se escucha tango|una calle peatonal llena de murales y bailarines|la Vuelta de Rocha y los paseos junto al agua|una camiseta azul y amarilla|un boceto de casas de colores
+c03|el Jardín Japonés en medio de la ciudad|el Rosedal y los botes de un lago|un planetario con forma de esfera|las ferias de diseño de una plaza concurrida|el Ecoparque junto a grandes parques|los bosques donde la gente sale a andar en bicicleta|una plaza de bares y puestos de artesanos|una entrada a un planetario|un libro sobre jardines japoneses
+c04|una catedral frente a la plaza que homenajea a la Virgen del Valle|una gruta de peregrinación al pie de las montañas|el tradicional encuentro de tejedores de ponchos|un valle rodeado por el cerro Ambato|las artesanías de tejidos y las festividades religiosas|los caminos serranos que rodean la capital|el paseo junto a las montañas del Ambato|un poncho tejido a mano|una estampita de la Virgen del Valle
+c05|las termas de agua caliente entre cerros secos|un valle desértico con dunas enormes|un recorrido que pasa cerca de montañas de seis mil metros|los baños termales al aire libre|paseos por viñedos de altura y aguas termales|las dunas de arena blanca al pie de la cordillera|una villa de oasis entre cumbres áridas|una toalla para aguas termales|un folleto de dunas y montañas
+c06|un concurso de escultores que trabajan en las calles|monumentos y estatuas repartidos por las veredas|el paseo del río Negro rodeado de árboles|una bienal que reúne escultores de muchos países|plazas con obras de arte al aire libre|una ciudad conocida por tener cientos de esculturas|los lapachos florecidos cerca de los monumentos|un pequeño busto de arcilla|un catálogo de esculturas
+c07|un complejo de baños termales en medio del Chaco|la historia del algodón en los campos chaqueños|los paseos con aguas termales y caminos del monte|una ciudad chaqueña famosa por sus piletas minerales|los viejos galpones vinculados al algodón|un oasis de termas en la llanura del norte|las rutas que conectan las zonas algodoneras|una toalla y sales para baños|un fardo pequeño de algodón
+c08|el avistaje de ballenas desde la costa|una playa donde las ballenas se acercan a la orilla|el Golfo Nuevo y sus aguas tranquilas|la Península Valdés y los animales marinos|el muelle de una ciudad patagónica junto al mar|las excursiones para ver mamíferos marinos|una costa donde se divisan ballenas sin barco|unos binoculares de avistaje|una guía de fauna marina
+c09|un tren de vapor que circula por la cordillera|un parque de alerces milenarios y lagos|los bosques patagónicos que rodean un viejo ferrocarril|el recorrido de La Trochita por valles andinos|senderos junto a árboles antiquísimos|una ciudad cordillerana con talleres ferroviarios históricos|una excursión entre lagos y bosques de alerces|una mochila de senderismo|un billete para un tren antiguo
+c10|la Manzana Jesuítica y sus edificios coloniales|una ciudad donde se escucha mucho cuarteto|la Cañada atravesando el centro|una universidad que ya tiene más de cuatro siglos|la Reforma Universitaria de 1918|patios coloniales y bares llenos de estudiantes|un paseo histórico junto a un arroyo encauzado|un afiche de baile de cuarteto|un libro sobre la Reforma Universitaria
+c11|un reloj cucú enorme junto a un lago|los teatros de la temporada serrana|la costanera del lago San Roque|un balneario de las sierras con muchas obras de teatro|el puente y los paseos frente al lago|un cerro con vistas de la villa turística|las tardes de verano junto al agua de una villa serrana|un folleto de una comedia teatral|un souvenir de un reloj cucú
+c12|un puente que une dos provincias sobre el Paraná|la costanera de una ciudad de chamamé|las comparsas de carnaval cerca del gran río|una ciudad frente a otra capital del Nordeste|la vida ribereña a orillas del Paraná|las fiestas de chamamé cerca de la costa|el monumento y los paseos del puente General Belgrano|un disco de chamamé|un dibujo de un puente enorme
+c13|un concurso enorme de pesca de surubí|un puerto pesquero del río Paraná|una fiesta que reúne pescadores de distintos países|las embarcaciones de una ciudad correntina|el festival junto al río dedicado a un gran pez|las islas y riachos visitados por pescadores|una ciudad del Litoral conocida por su concurso de pesca|una caña de pesca para peces grandes|un dibujo de un surubí
+c14|un túnel que atraviesa por debajo de un gran río|el Parque Urquiza sobre las barrancas|una ciudad que fue capital de la Confederación|un paseo por barrancas frente al Paraná|el paso subfluvial que comunica dos provincias|la costanera donde se contemplan las islas|el viejo centro histórico junto al río|una maqueta de un túnel bajo el agua|una guía de barrancas y parques
+c15|un corsódromo lleno de comparsas y carrozas|una gran fiesta de carnaval en verano|los trajes de lentejuelas de las comparsas|la ribera de un río entrerriano y sus paseos|las murgas que ensayan para el carnaval|el Carnaval del País y sus desfiles|una ciudad de termas y corsos famosos|un tocado con plumas de carnaval|un folleto de un corsódromo
+c16|una costanera frente al río Paraguay|la laguna Oca rodeada de bañados|un paseo que lleva el nombre de Vuelta Fermoza|una ciudad del norte junto a un gran río|los palmares cercanos a la capital|una ribera con embarcaciones hacia el Paraguay|un atardecer sobre una laguna junto a la ciudad|un termo con dibujos del río Paraguay|un plano de una laguna
+c17|un puente fronterizo llamado San Ignacio de Loyola|el río Pilcomayo cerca de la frontera|un paso internacional hacia Paraguay|una ciudad donde cruzan compradores entre países|la cercanía de Asunción cruzando el río|un mercado fronterizo en el nordeste|las rutas comerciales junto al Pilcomayo|una bolsa con compras de frontera|una guía de pasos internacionales
+c18|una celebración en recuerdo de una retirada histórica|la plaza Belgrano cerca de edificios antiguos|el recuerdo del Éxodo Jujeño|una ciudad capital a los pies de montañas verdes|la Casa de Gobierno frente a una plaza histórica|las fiestas del norte alrededor de la quebrada|una ciudad del noroeste conocida por la gesta de Belgrano|un folleto sobre el Éxodo|una postal de montañas verdes
+c19|un cerro con siete franjas de colores|el Paseo de los Colorados|las casas de adobe alrededor de una plaza|un mercado de tejidos al pie de montañas rojizas|los senderos de una quebrada con cerros multicolores|un pueblo de artesanos junto a un cerro famoso|la pequeña iglesia blanca del pueblo andino|una bolsita con artesanías de lana|una cámara llena de fotos de cerros coloridos
+c20|un parque de caldenes donde viven ciervos|la laguna Don Tomás dentro de la ciudad|una reserva natural cercana con monte pampeano|los paseos por un gran espejo de agua|la capital de una provincia de llanuras y caldenes|la brama de los ciervos en un parque cercano|un paisaje urbano de lagunas y amplias avenidas|unos binoculares para observar ciervos|una guía de árboles de caldén
+c21|un parque recreativo llamado Delfín Pérez|los viejos talleres del ferrocarril en la llanura|una laguna rodeada de caminos para caminar|la tradición ferroviaria del norte pampeano|los campos abiertos cerca de una ciudad de trenes|un paseo recreativo construido junto al agua|una localidad pampeana conocida por sus talleres ferroviarios|un boleto de un tren histórico|un folleto de una laguna recreativa
+c22|una fiesta de encuentro llamada Tinkunaco|las celebraciones religiosas frente a la plaza principal|el recuerdo del Chacho Peñaloza en los valles|calles calurosas al pie de cerros secos|la plaza 25 de Mayo y una tradición de encuentro|las peñas riojanas en los días de fiesta|una capital del oeste con tradiciones muy antiguas|una medalla de una fiesta religiosa|un folleto de un encuentro tradicional
+c23|un antiguo cablecarril que transportaba minerales|el cerro Famatina visto desde el valle|estaciones abandonadas de un cablecarril minero|una ciudad entre viñedos y montañas rojizas|la historia minera al pie de un cerro alto|el paseo por estructuras de hierro de una vieja mina|un valle riojano famoso por su cablecarril|un casco de minero antiguo|una postal del Famatina
+c24|la Fiesta de la Vendimia y las cosechas|el Parque General San Martín y su lago|la avenida con acequias bajo grandes árboles|el vino Malbec y las bodegas cercanas|el monumento del Cerro de la Gloria|una ciudad de oasis con canales de riego|la cordillera nevada que se ve desde los alrededores|una botella vacía de Malbec|un folleto de bodegas y viñedos
+c25|las curvas del Cañón del Atuel|un río para hacer rafting entre montañas|los embalses Valle Grande y El Nihuil|un oasis de viñedos entre cañones y montañas|las paredes rojizas de un cañón mendocino|los paseos en kayak por un embalse|un río que atraviesa gargantas de piedra|un casco para hacer rafting|una guía de diques y cañones
+c26|una caída de agua enorme en plena selva|la Garganta del Diablo rodeada de vapor|los coatíes que caminan cerca de las pasarelas|una triple frontera rodeada de selva|los paseos en lancha cerca de saltos de agua|un parque de cataratas y tucanes|las pasarelas sobre un gran río en la selva|un piloto de lluvia para un paseo por cascadas|un peluche de coatí
+c27|un puente que cruza a Encarnación|una costanera amplia junto al Paraná|una ciudad de tierra colorada y río|el puente San Roque González de Santa Cruz|los atardeceres sobre el Paraná frente a Paraguay|el paseo sobre la ribera de la capital misionera|las ferias y los árboles de la costanera|una bolsa con tierra roja en los zapatos|una postal de un puente internacional
+c28|donde se unen el Limay y el Neuquén|el paseo de la costa entre dos ríos patagónicos|una capital en la confluencia que forma el río Negro|los balnearios de una ciudad de ríos|la Isla 132 y sus parques ribereños|los caminos junto al Limay en la Patagonia|una ciudad de la confluencia rodeada de bardas|una tabla para pasear por el río|un mapa de dos ríos que se unen
+c29|el lago Lácar a orillas de una ciudad de montaña|la Ruta de los Siete Lagos|los senderos del Parque Nacional Lanín|las casas de madera frente a un lago|una villa andina desde donde salen rutas de lagos|las playas y el muelle del Lácar|los caminos de montaña rodeados de bosques|unas botas para caminar entre lagos|una postal con un lago rodeado de montañas
+c30|el chocolate artesanal y la vista al Nahuel Huapi|un centro cívico de piedra junto al lago|las pistas de esquí del Cerro Catedral|el Cerro Campanario y sus panoramas|una ciudad de chocolaterías entre lagos y montañas|las excursiones del Circuito Chico|el puerto de excursiones del lago Nahuel Huapi|una caja de bombones de chocolate|unos guantes para esquiar
+c31|las grutas que se forman en los acantilados|playas donde el agua del mar resulta templada|un balneario del golfo San Matías|las bajadas a la playa entre paredes rocosas|un pueblo costero de Patagonia con acantilados|las caminatas por playas de arena clara|los paseos donde aparecen cavernas junto al Atlántico|una sombrilla para el viento patagónico|una bolsa con caracoles de la playa
+c32|el teleférico que sube al cerro San Bernardo|una plaza histórica rodeada de recovas|las peñas de folclore cerca de la catedral|el convento San Bernardo y los paseos|las empanadas salteñas y las peñas|una capital norteña que llaman la Linda|el mirador del cerro sobre los tejados coloniales|una entrada para subir en teleférico|una caja de empanadas pequeñas
+c33|el vino torrontés de los valles|los viñedos de altura del norte|la Quebrada de las Conchas con rocas rojizas|una ruta que pasa por la Garganta del Diablo|una ciudad de bodegas entre los Valles Calchaquíes|la formación rocosa conocida como Anfiteatro|los paisajes de la ruta 68 y los viñedos|una botella de torrontés|una foto de formaciones rocosas rojizas
+c34|la casa natal de Domingo Faustino Sarmiento|el dique de Ullum cerca de la capital|un museo dedicado al maestro sanjuanino|el paisaje del valle de Tulum|los paseos de una ciudad rodeada de montañas|la historia del terremoto que cambió la ciudad|el turismo del vino cerca de la cordillera|un libro de Sarmiento|un mapa de diques cordilleranos
+c35|la Pampa del Leoncito y los carros a vela|observatorios que estudian las estrellas|el parque nacional El Leoncito|una planicie seca donde se practica carrovelismo|un cielo nocturno famoso por su claridad|los paisajes montañosos de Calingasta|los telescopios junto a montañas andinas|una guía de astronomía|unos anteojos para protegerse del sol de altura
+c36|el Parque de las Naciones entre sierras|el circuito del Potrero de los Funes|un lago rodeado por una pista de automovilismo|los paseos serranos cerca de la capital|el dique y las vueltas del circuito de carreras|una ciudad puntana rodeada de montañas bajas|el camino de las sierras puntanas|una gorra de automovilismo|un plano de un circuito junto a un lago
+c37|el microclima de las sierras de los Comechingones|el Mirador del Sol sobre el valle|los senderos que suben por una sierra serrana|una villa turística con caminatas y arroyos|el paseo de los artesanos al pie de las sierras|la vista del valle desde los miradores|los atardeceres al pie de los Comechingones|unas zapatillas para senderismo|un folleto sobre el microclima
+c38|el glaciar Perito Moreno y sus desprendimientos|pasarelas frente a una pared azul de hielo|el lago Argentino en la estepa|una excursión para caminar cerca de un glaciar|los barcos que navegan junto a témpanos|un pueblo patagónico que es puerta de los glaciares|los ruidos de un glaciar que se resquebraja|un abrigo para visitar glaciares|una cámara con fotos de témpanos
+c39|el cerro Fitz Roy y sus agujas de granito|la Laguna de los Tres después de una caminata|la capital nacional del trekking|los senderos que cruzan bosques de lenga|una villa de mochileros al pie de montañas|las vistas del macizo del Chaltén|las excursiones a la Laguna Capri|una mochila de trekking|unos bastones para subir senderos de montaña
+c40|el Monumento Nacional a la Bandera frente al Paraná|la cuna del futbolista Lionel Messi|las barrancas y el Parque Independencia|el puente Rosario-Victoria sobre el río|las peatonales de una gran ciudad ribereña|la costanera y los barcos del Paraná|la historia de la bandera argentina junto al río|una camiseta con el número diez|una bandera celeste y blanca pequeña
+c41|el Puente Colgante sobre la laguna Setúbal|una costanera junto a una laguna enorme|los tradicionales alfajores santafesinos|el paseo ribereño donde se ve un puente iluminado|la historia de una antigua capital provincial|los barcos que cruzan la laguna Setúbal|una ciudad de ríos con un puente colgante famoso|una caja de alfajores santafesinos|una postal de un puente suspendido
+c42|una ciudad conocida como la Madre de Ciudades|las chacareras que suenan en las peñas|el río Dulce y los edificios históricos|los patios santiagueños con música y baile|el folclore de la tierra de los Manseros|la antigua fundación española del noroeste|un paseo histórico por la ciudad más antigua del país|un bombo legüero pequeño|una lista de chacareras
+c43|las aguas termales de un balneario muy famoso|un autódromo donde corren motos|un museo del automóvil junto a un circuito|los hoteles con piscinas termales|una ciudad termal que recibe viajeros todo el año|el lago cercano y las competiciones de pesca|las carreras internacionales de motociclismo|un traje de baño y una toalla|una miniatura de moto de carreras
+c44|el canal Beagle entre montañas|un tren que recorría un antiguo presidio|los paseos al fin del mundo entre bosques y nieve|la bahía de una ciudad austral junto al mar|los barcos que visitan colonias de pingüinos|una ciudad desde donde salen excursiones a Tierra del Fuego|el museo del antiguo presidio en una isla austral|una campera gruesa y guantes de lana|unas botas impermeables para nieve
+c45|los vientos fuertes junto al Atlántico fueguino|la pesca con mosca de truchas enormes|el cabo Domingo y sus paisajes costeros|una ciudad industrial en la isla austral|las estancias y el horizonte patagónico|los ríos donde buscan truchas con mosca|una ciudad ventosa de fábricas y pesca|una campera cortaviento muy gruesa|una caña de pescar truchas
+c46|la Casa Histórica donde se declaró la Independencia|el 9 de Julio de 1816 en una casita blanca|la ciudad conocida como el Jardín de la República|la plaza Independencia y su catedral|un antiguo cabildo convertido en símbolo patrio|las empanadas tucumanas y la historia de la Independencia|la capital norteña donde se reunió el Congreso de 1816|una escarapela y un libro de historia|una caja de empanadas tucumanas
+c47|los menhires de piedra de un valle|los quesos artesanales de montaña|el dique La Angostura entre cerros|una villa fresca entre los Valles Calchaquíes|los senderos que llevan a miradores serranos|un paisaje de valles verdes y cumbres|las rutas de artesanos y queserías de montaña|un queso de cabra envuelto en papel|unas botas para caminar por un valle`;
+const DESTINATION_STORIES=Object.fromEntries(DESTINATION_STORIES_RAW.trim().split('\n').map(row=>{
+ const [id,...entries]=row.split('|');
+ return [id,{main:entries.slice(0,7),side:entries.slice(7,9)}];
+}));
+function primaryStory(rng,province,event,clue){
+ const who=event.talker.toLowerCase();
+ const clueLine=pick(rng,[
+  `Escuché que ${who} mencionó ${clue}.`,
+  `${event.talker} estaba hablando de ${clue}.`,
+  `Me quedó grabado que ${who} preguntó por ${clue}.`,
+  `También oí a ${who} comentar algo sobre ${clue}.`
+ ]);
+ const possibilities=[
+  `${clueLine} ${event.action} ${event.departure}`,
+  `${event.action} ${clueLine} ${event.departure}`,
+  `${event.action} ${event.departure} ${clueLine}`,
+  `No me olvido de lo que decía esa persona. ${clueLine} ${event.action} ${event.departure}`,
+  `${event.action} ${event.talker} habló de ${clue} durante la charla. ${event.departure}`
+ ];
+ // Hay pistas al principio, en medio y, ocasionalmente, al final del testimonio.
+ return withAccent(rng,province,pick(rng,possibilities));
+}
+function secondaryStory(rng,province,detail){
+ const line=pick(rng,[
+  `Vi pasar a un husky cerca de alguien que llevaba ${detail}. Después doblaron la esquina y los perdí de vista.`,
+  `Por acá pasó un husky muy apurado. Me llamó la atención una persona con ${detail}, que caminaba cerca de él.`,
+  `Me acuerdo de un perro parecido a Dubi junto a alguien que tenía ${detail}. No sé para dónde siguieron.`,
+  `Escuché que un husky andaba detrás de una persona con ${detail}. Eso es todo lo que supe.`
+ ]);
+ return withAccent(rng,province,line);
+}
 function cityWrongDialog(rng,city){const msg=pick(rng,SAME_PROVINCE);return withAccent(rng,city.province,msg);}
 function createScene(rng,city,isRoute,nextCity,isFinal){
  const themed=shuffle(rng,BUILDING_LOCAL[city.province]||['kiosco','cafe','hotel']);
  const picks=[BUILDINGS.find(b=>b[0]===themed[0]),...shuffle(rng,BUILDINGS.filter(b=>b[0]!==themed[0])).slice(0,2)];
  const choices=shuffle(rng,picks);
  const realIndex=isRoute?Math.floor(rng()*3):-1;
- const clue=nextCity?pick(rng,nextCity.hints):null;
+ const options=nextCity?[...nextCity.hints,...DESTINATION_STORIES[nextCity.id].main]:[];
+ const clue=nextCity?pick(rng,options):null;
+ const sideHints=nextCity?shuffle(rng,DESTINATION_STORIES[nextCity.id].side):[];
+ let nextSide=0;
  const buildings=choices.map((entry,i)=>{
   const [id,name,icon]=entry,p=pick(rng,PEOPLE),face=personFaceCode(rng),lead=i===realIndex;
-  let intro,questions=[];
+  let intro,questions=[],sideNote=null;
   if(lead&&isFinal){intro=withAccent(rng,city.province,pick(rng,FINAL_LINES));questions=optionalQuestions(rng,[['¿Está bien Dubi?','Sí, tomó agua, está tranquilo y lo cuidamos todo el tiempo.'],['¿Hizo alguna travesura?','Quiso llevarse una servilleta, pero lo convencimos con una caricia.'],['¿Intentó escaparse otra vez?','No, ahora está descansando y esperando que lo vengas a buscar.']],2);}
   else if(lead){
    const event=pick(rng,DUBI_EVENTS);
-   intro=withAccent(rng,city.province,pick(rng,[`Vi a Dubi pasar por acá. ${event.action} ${event.departure} ${event.talker} comentó algo sobre ${clue}.`,`Sí, vi a ese husky. ${event.action} ${event.departure} ${event.talker} hablaba de ${clue}.`,`Me acuerdo del husky. ${event.action} ${event.departure} Escuché que ${event.talker.toLowerCase()} hablaba de ${clue}.`]));
+   intro=primaryStory(rng,city.province,event,clue);
    questions=leadQuestions(rng,nextCity,clue);
+  } else if(isRoute&&nextCity){
+   // Cada testigo secundario da exactamente una referencia suave sobre el próximo destino.
+   const detail=sideHints[nextSide++];
+   intro=secondaryStory(rng,city.province,detail);
+   sideNote=`${city.id==='home'?'Buenos Aires':city.city}: Vieron a Dubi cerca de alguien con ${detail}.`;
   } else if(isRoute){
    intro=withAccent(rng,city.province,pick(rng,CITY_DECOY));
    questions=optionalQuestions(rng,SIDE_QUESTIONS,pick(rng,[1,2]));
@@ -354,7 +444,7 @@ function createScene(rng,city,isRoute,nextCity,isFinal){
   const nearbyIntro=cityWrongDialog(rng,city),nearbyQuestions=optionalQuestions(rng,NEAR_QUESTIONS,pick(rng,[1,2]));
   const wrongIntro=withAccent(rng,city.province,pick(rng,WRONG_PROVINCE));
   const wrongQuestions=optionalQuestions(rng,WRONG_QUESTIONS,pick(rng,[1,2]));
-  return {id,name,icon,person:p[0],face,lead,final:lead&&isFinal,intro,questions,nearbyIntro,nearbyQuestions,wrongIntro,wrongQuestions,clue:lead?clue:null,note:lead&&!isFinal?`${city.id==='home'?'Buenos Aires':city.city}: Dubi siguió a alguien que mencionó ${clue}.`:lead&&isFinal?`${city.city}: Dubi está a salvo.`:null};
+  return {id,name,icon,person:p[0],face,lead,final:lead&&isFinal,intro,questions,nearbyIntro,nearbyQuestions,wrongIntro,wrongQuestions,sideNote,clue:lead?clue:null,note:lead&&!isFinal?`${city.id==='home'?'Buenos Aires':city.city}: Dubi siguió a alguien que mencionó ${clue}.`:lead&&isFinal?`${city.city}: Dubi está a salvo.`:null};
  });
  return {buildings};
 }
@@ -471,7 +561,10 @@ function revealBuilding(id){
   state.stageVisited=state.stageVisited||{};
   state.stageVisited[currentVisitKey(id)]=true;
   if(!spend(12))return;
-  if(target.lead&&inCorrectPlace()){state.lead[city.id]=true;state.notes[city.id]=target.note;}
+  if(inCorrectPlace()){
+   if(target.lead){state.lead[city.id]=true;state.notes[city.id]=target.note;}
+   else if(target.sideNote){state.sideNotes=state.sideNotes||{};state.sideNotes[currentVisitKey(id)]=target.sideNote;}
+  }
   const shown=witnessForCity(city,target);
   reportEvent('entrevista',{building:id,person:shown.person,claimedLead:!!shown.lead,statement:shown.intro});
  }
@@ -505,7 +598,7 @@ function provinceCards(list){return list.map(p=>`<button class="province" data-a
 function mapHTML(){if(mapProvince){const cities=CITIES.filter(c=>c.province===mapProvince);return `<main>${gameHeader(mapProvince,'Elegí una ciudad')}<div class="city-grid">${cities.map(c=>`<button class="city-card ${c.id===state.location?'current':''}" data-action="travel" data-to="${c.id}" ${c.id===state.location?'disabled':''}><div class="city-icon">${sceneArt(SCENE_TYPES[c.province])}</div><strong>${esc(c.city)}</strong><small>${c.id===state.location?'📍 Estás acá':`(+${shortTime(travelCost(loc(state.location),c))})`}</small></button>`).join('')}</div></main>`;}
 const showSearch=availableProvinces().length>10;
 return `<main>${gameHeader('¿A dónde viajamos?','Elegí una provincia')}${showSearch?`<input class="search" id="province-filter" placeholder="🔎 Buscar provincia o ciudad" aria-label="Buscar provincia o ciudad" autocomplete="off" value="${esc(mapQuery)}">`:''}<div id="provinces">${provinceResults(mapQuery)}</div></main>`;}
-function journalHTML(){const lines=Object.entries(state.notes);return `<main>${gameHeader('Mis pistas','')}<section class="card"><div class="panel-pad"><div class="simple-clues">${lines.length?lines.map(([id,note])=>`<p>${esc(note)}</p>`).join(''):'<p class="muted">Todavía no anotaste nada.</p>'}</div><button class="diag-download" data-action="diagnostic">⬇ Descargar diagnóstico</button></div></section></main>`;}
+function journalHTML(){const lines=[];for(let i=0;i<state.route.length;i++){const id=state.route[i],scene=state.scenes[id];if(state.notes?.[id])lines.push(state.notes[id]);for(const b of scene?.buildings||[]){const key=`${i}|${id}|${b.id}`;if(state.sideNotes?.[key])lines.push(state.sideNotes[key]);}}return `<main>${gameHeader('Mis pistas','')}<section class="card"><div class="panel-pad"><div class="simple-clues">${lines.length?lines.map(note=>`<p>${esc(note)}</p>`).join(''):'<p class="muted">Todavía no anotaste nada.</p>'}</div><button class="diag-download" data-action="diagnostic">⬇ Descargar diagnóstico</button></div></section></main>`;}
 function endHTML(){const won=state.status==='won';return `<main><section class="end"><div class="kicker">${won?'¡Misión cumplida!':'El reloj llegó a cero'}</div><img src="${DUBI_PHOTO}" alt="Dubi, el husky protagonista"><h1>${won?'🐾 ¡Encontraste a Dubi!':'🐕 ¡Dubi sigue de paseo!'}</h1><p>${won?'Después de recorrer medio país, ahí está: moviendo la cola y con esa cara de «yo no hice nada». ¡A casa, Dubi!':'Esta vez se acabó el tiempo. Pero Dubi está bien: alguien lo vio descansando en un lugar seguro. ¡Intentá de nuevo!'}</p><div class="end-stats"><div><strong>${state.stage+1}/${state.route.length}</strong><small>Paradas</small></div><div><strong>${state.questionsCount}</strong><small>Preguntas</small></div><div><strong>${state.wrongTravels}</strong><small>Desvíos</small></div></div>${won?`<p style="color:var(--yellow);font-weight:900">⏱️ Te sobraron ${minutesLabel(state.minutes)}.</p>`:''}<button class="primary" data-action="setup">🐾 Otra escapada</button></section></main>`;}
 function dockHTML(){if(!state||state.status!=='playing'||screen==='intro')return '';return `<nav class="dock" aria-label="Navegación del juego"><button class="${screen==='investigar'?'sel':''}" data-action="investigar"><span class="di">🏪</span> Investigar</button><button class="${screen==='mapa'?'sel':''}" data-action="map"><span class="di">🗺️</span> Viajar</button><button class="${screen==='bitacora'?'sel':''}" data-action="journal"><span class="di">📔</span> Pistas</button></nav>`;}
 function render(){let out=header();if(state?.status==='playing'&&screen!=='intro'){out+='<div class="session-actions"><button type="button" class="session-new-game" data-action="setup">↻ Iniciar nuevo juego</button></div>';}if(screen==='intro'||!state){out+=introHTML();}else if(state.status!=='playing'){out+=endHTML();}else if(screen==='mapa'){out+=mapHTML();}else if(screen==='bitacora'){out+=journalHTML();}else{out+=investigationHTML();}out+=dockHTML();$('app').innerHTML=out;}

@@ -484,14 +484,14 @@ c02|una gorra azul y amarilla|una caja de pinturas de colores|una foto de un vie
 c03|una cámara para fotografiar jardines|un mapa de parques urbanos|una entrada a una feria de diseño|una guía de astronomía|un ramo de rosas|una bolsa con plantas de vivero
 c04|un tejido de lana del noroeste|una postal de montañas|un libro sobre fiestas religiosas|un sombrero para el sol serrano|una tela bordada|una guía de peregrinaciones
 c05|una botella de agua para el desierto|una cámara para fotografiar dunas|un frasco con aceitunas|un gorro para aguas termales|un mapa de valles altos|un par de sandalias para termas
-c06|una libreta para dibujar esculturas|una bolsita con herramientas de modelado|un catálogo de arte urbano|un mate con dibujos de lapachos|una cámara para fotografiar estatuas|un folleto de una bienal artística
+c06|una libreta para dibujar esculturas|un folleto para navegar el río Negro|una bolsita de chipá recién horneado|un mate con dibujos de lapachos|un folleto sobre el Museo del Hombre Chaqueño|un folleto de una bienal artística
 c07|una toalla para termas|una bolsa con algodón|un paquete de yerba del norte|una libreta de caminos rurales|una gorra de campo|un mapa de la llanura chaqueña
 c08|unos binoculares marinos|una campera impermeable|una postal con ballenas|un folleto de excursiones por el mar|una cámara con teleobjetivo|una guía de aves costeras
 c09|un pasaje de tren de vapor|una mochila de bosque|una guía de árboles milenarios|un termo para caminatas|una campera para la cordillera|un mapa de lagos patagónicos
 c10|un disco de cuarteto|un libro de historia universitaria|un mapa de edificios coloniales|una remera de un baile|una postal de un antiguo claustro|un folleto de teatros
 c11|un boleto para una comedia teatral|una postal de un reloj gigante|un traje de baño de lago|una gorra para caminatas serranas|una cámara para paseos en lancha|un folleto de espectáculos
 c12|un acordeón para chamamé|una postal de un gran puente|un mapa del río Paraná|un traje de carnaval|una guía de paseos ribereños|un pañuelo de baile
-c13|una caña para pescar surubí|una caja de anzuelos|un salvavidas de lancha|un libro de peces del río|una gorra de pescador|un folleto de un festival de pesca
+c13|una caña para pescar surubí|un frasco con dulces regionales|un salvavidas de lancha|una postal de la costanera de Goya|un folleto sobre la historia de Goya|un folleto de un festival de pesca
 c14|una postal de barrancas verdes|una guía de historia argentina|un mapa de dos provincias vecinas|un folleto de paseos por el río|una cámara para fotografiar islas|una gorra de un parque junto al Paraná
 c15|unas plumas de comparsa|un tambor de carnaval|una entrada a un desfile|un folleto de termas|un traje con lentejuelas|una postal de una ribera
 c16|un mapa del río Paraguay|unos binoculares para ver aves|una postal de una laguna|un termo para paseos por la costa|una guía de palmares|una cámara para atardeceres
@@ -530,6 +530,93 @@ c47|un paquete de quesos artesanales|una postal de piedras antiguas|un mapa de v
 const SIDE_VARIETY=Object.fromEntries(SIDE_VARIETY_RAW.trim().split('\n').map(row=>{
  const [id,...values]=row.split('|');return [id,values];
 }));
+// Clasificación editorial para impedir que los testigos de la misma etapa
+// repitan el mismo tema, aunque sus frases usen palabras diferentes.
+const SIDE_TOPICS_RAW=`
+c00|playa,playa,playa,playa,puerto,playa,playa,lobos
+c01|estudiantes,museo,museo,estudiantes,universidad,diagonales,teatro,museo
+c02|bombonera,caminito,bombonera,caminito,puente,tango,conventillos,caminito
+c03|planetario,jardines,jardines,bosques,ferias,planetario,rosedal,jardines
+c04|poncho,virgen,tejidos,montanas,virgen,montanas,tejidos,virgen
+c05|termas,dunas,montanas,dunas,oasis,termas,montanas,termas
+c06|esculturas,esculturas,esculturas,rio,comida,lapachos,museo,bienal
+c07|termas,algodon,termas,algodon,norte,campos,campos,llanura
+c08|fauna,fauna,fauna,costa,ballenas,mar,fauna,aves
+c09|bosques,tren,tren,bosques,alerces,senderos,montanas,lagos
+c10|cuarteto,reforma,cuarteto,universidad,jesuitica,cuarteto,jesuitica,teatros
+c11|teatros,cucu,teatros,cucu,lago,cerro,lago,teatros
+c12|chamame,puente,chamame,puente,rio,carnaval,costanera,chamame
+c13|pesca,surubi,pesca,comida,barcos,costanera,historia,festival
+c14|tunel,barrancas,barrancas,historia,frontera,costanera,islas,parque
+c15|carnaval,carnaval,carnaval,carnaval,carnaval,termas,carnaval,rio
+c16|rio,laguna,rio,aves,laguna,costanera,palmares,atardecer
+c17|frontera,frontera,frontera,frontera,pilcomayo,puente,banados,mercado
+c18|exodo,montanas,belgrano,montanas,historia,montanas,plaza,quebrada
+c19|artesanos,colores,artesanos,colores,colores,mercado,senderos,paisajes
+c20|ciervos,caldenes,ciervos,caldenes,laguna,campos,parque,llanura
+c21|tren,laguna,tren,laguna,ferrocarril,parque,campos,parque
+c22|religion,tinkunaco,tradicion,chacho,cerros,plaza,religion,tradicion
+c23|mineria,famatina,mineria,montanas,mineria,cablecarril,viñedos,cablecarril
+c24|vino,vino,vendimia,vendimia,cordillera,acequias,vino,vino
+c25|rafting,dique,atuel,rafting,canion,dique,atuel,oasis
+c26|cataratas,coaties,cataratas,selva,selva,cataratas,frontera,selva
+c27|tierra,puente,ferias,tierra,artesanias,costanera,costanera,parana
+c28|costa,confluencia,bardas,costa,balnearios,costa,bardas,isla
+c29|siete_lagos,lacar,siete_lagos,bosques,lacar,senderos,lacar,montanas
+c30|chocolate,esqui,chocolate,esqui,centro_civico,lago,esqui,lago
+c31|playas,playas,playas,playas,playas,acantilados,vientos,grutas
+c32|teleferico,empanadas,teleferico,empanadas,penas,colonial,cerro,cerro
+c33|torrontes,quebrada,ruta,bodegas,quebrada,viñedos,valles,quebrada
+c34|sarmiento,dique,sarmiento,dique,valle,historia,clima,vino
+c35|observatorios,sol,observatorios,estrellas,carrovelismo,montanas,cielo,observatorios
+c36|circuito,circuito,circuito,dique,sierras,circuito,sierras,sierras
+c37|senderos,microclima,senderos,microclima,mirador,valle,artesanos,artesanos
+c38|glaciar,glaciar,glaciar,glaciar,barcos,glaciar,parque,frio
+c39|trekking,trekking,trekking,trekking,granito,fitzroy,senderos,paisajes
+c40|messi,bandera,bandera,messi,parana,bandera,costanera,messi
+c41|alfajores,puente,alfajores,puente,laguna,costanera,historia,puente
+c42|musica,chacarera,musica,chacarera,historia,rio_dulce,folclore,folclore
+c43|termas,motos,termas,motos,circuito,hoteles,lago,circuito
+c44|frio,frio,frio,tren,pinguinos,isla,frio,beagle
+c45|vientos,pesca,vientos,pesca,isla,vientos,vientos,estancias
+c46|independencia,empanadas,independencia,penas,independencia,historia,plaza,norte
+c47|quesos,valles,quesos,menhires,valles,cumbres,senderos,menhires
+`;
+const SIDE_TOPICS=Object.fromEntries(SIDE_TOPICS_RAW.trim().split('\n').map(row=>{
+ const [id,tags]=row.split('|');return [id,tags.split(',')];
+}));
+const TOPIC_EQUIVALENCES={
+ c01:{futbol:'estudiantes'},
+ c03:{rosedal:'jardines'},
+ c04:{tejidos:'poncho'},
+ c06:{bienal:'esculturas'},
+ c09:{trochita:'tren'},
+ c10:{colonia:'jesuitica',reforma:'universidad'},
+ c13:{surubi:'pesca',festival:'pesca'},
+ c15:{plumas:'carnaval',murgas:'carnaval'},
+ c17:{compras:'frontera',mercado:'frontera'},
+ c18:{belgrano:'exodo'},
+ c19:{siete_colores:'colores'},
+ c20:{brama:'ciervos'},
+ c21:{ferrocarril:'tren'},
+ c22:{tinkunaco:'religion',tradicion:'religion'},
+ c23:{mineria:'cablecarril'},
+ c24:{vendimia:'vino'},
+ c25:{rafting:'atuel',kayak:'atuel'},
+ c26:{garganta:'cataratas',pasarelas:'cataratas'},
+ c28:{limay:'confluencia'},
+ c29:{siete_lagos:'lacar'},
+ c31:{grutas:'acantilados'},
+ c33:{torrontes:'vino',viñedos:'vino',bodegas:'vino'},
+ c35:{cielo:'observatorios',estrellas:'observatorios'},
+ c36:{potrero:'circuito'},
+ c38:{excursion:'glaciar'},
+ c39:{fitzroy:'granito',trekking:'senderos'},
+ c42:{chacarera:'musica',folclore:'musica'},
+ c43:{autodromo:'circuito',motos:'circuito'},
+ c46:{'1816':'independencia',congreso:'independencia',cabildo:'independencia'}
+};
+function clueTopic(cityId,topic){return TOPIC_EQUIVALENCES[cityId]?.[topic]||topic;}
 const CLUE_MEMORY_KEY='dubi-pistas-ultimas-10-v1';
 function readClueMemory(){try{const data=JSON.parse(localStorage.getItem(CLUE_MEMORY_KEY)||'[]');return Array.isArray(data)?data.slice(-10):[];}catch(e){return [];}}
 function rememberClues(game){
@@ -557,8 +644,13 @@ function createCluePlan(rng,city,history){
  const main=pick(rng,choices.filter((_,i)=>tags[i]===topic));
  const pool=[...DESTINATION_STORIES[city.id].side,...SIDE_VARIETY[city.id]];
  const priorSides=history.flatMap(h=>h.sides?.[city.id]||[]);
- const first=chooseLeastRecent(rng,pool.map((_,i)=>i),priorSides);
- const second=chooseLeastRecent(rng,pool.map((_,i)=>i).filter(i=>i!==first),priorSides);
+ const concepts=SIDE_TOPICS[city.id].map(tag=>clueTopic(city.id,tag));
+ const principalConcept=clueTopic(city.id,topic);
+ // Una pista secundaria jamás duplica el concepto de la pista principal.
+ const different=pool.map((_,i)=>i).filter(i=>concepts[i]!==principalConcept);
+ const first=chooseLeastRecent(rng,different,priorSides);
+ // El tercer testigo tampoco puede repetir el concepto del segundo.
+ const second=chooseLeastRecent(rng,different.filter(i=>concepts[i]!==concepts[first]),priorSides);
  return {main,topic,side:[pool[first],pool[second]],sideIds:[first,second]};
 }
 function primaryStory(rng,province,event,clue){
@@ -686,7 +778,7 @@ async function refreshRanking(){
 }
 function rankingHTML(){
  return `<section class="card rank-card" aria-label="Ranking general de jugadores">
-  <div class="rank-header"><div><h2>🏆 Tabla general</h2><p class="rank-sub">Puntajes de toda la familia · Fácil +25 · Medio +40 · Difícil +80</p></div><button type="button" class="rank-refresh" data-action="refresh-ranking">↻ Actualizar</button></div>
+  <div class="rank-header"><div><h2>Tabla</h2></div><button type="button" class="rank-refresh" data-action="refresh-ranking">↻ Actualizar</button></div>
   <div class="rank-scroll"><table class="rank-table"><thead><tr><th>#</th><th>Jugador</th><th>Partidas jugadas</th><th>Victorias</th><th>Puntos acumulados</th></tr></thead>
   <tbody>${rankingRows.length?rankingRows.map((p,i)=>`<tr class="${p.nombre.toLocaleLowerCase('es')===playerName.trim().toLocaleLowerCase('es')?'player-highlight':''}"><td class="rank-num">${i+1}</td><td>${esc(p.nombre)}</td><td>${Number(p.partidas_jugadas)||0}</td><td>${Number(p.victorias)||0}</td><td>${Number(p.puntos)||0}</td></tr>`).join(''):`<tr><td colspan="5" class="rank-message">${rankingLoaded?'Todavía no hay partidas registradas. ¡Sé el primero!':'Cargando puntajes…'}</td></tr>`}</tbody></table></div>
   <div class="rank-mobile">${rankingRows.length?rankingRows.map((p,i)=>`<div class="rank-mobile-item ${p.nombre.toLocaleLowerCase('es')===playerName.trim().toLocaleLowerCase('es')?'player-highlight':''}"><div class="rank-mobile-top"><strong>${i+1}. ${esc(p.nombre)}</strong><b>${Number(p.puntos)||0} puntos</b></div><small>Partidas jugadas: ${Number(p.partidas_jugadas)||0} · Victorias: ${Number(p.victorias)||0}</small></div>`).join(''):`<p class="rank-message">${rankingLoaded?'Todavía no hay partidas registradas. ¡Sé el primero!':'Cargando puntajes…'}</p>`}</div>
@@ -828,7 +920,7 @@ function completeTravel(){if(!travelPending||!state)return;clearTimeout(travelTi
 function finish(){if(!atFinal()||!state.lead[state.location])return;state.status='won';persist();screen='fin';selected=null;pushView();sfx('win');render();window.scrollTo(0,0);void syncGameScore();}
 function header(){return `<header class="topbar"><div class="brand"><div class="brand-mark">🐾</div><div><div class="brand-title">¡Se escapó Dubi!</div><div class="brand-sub">Aventura por Argentina</div></div></div><div class="top-stat">${state?`<div class="time-compact ${state.minutes<8*60?'low':''}"><small>Tiempo</small><strong>${shortTime(state.minutes)}</strong></div>`:''}<button class="icon-btn" data-action="sound" aria-label="${soundEnabled?'Silenciar sonidos':'Activar sonidos'}">${soundEnabled?'🔊':'🔇'}</button></div></header>`;}
 function difficultyHTML(){return `<div class="difficulty-pick"><span class="difficulty-title">Dificultad</span><div class="difficulty-grid" role="group" aria-label="Dificultad de la partida">${Object.entries(DIFFICULTIES).map(([id,item])=>`<button type="button" class="difficulty-choice ${selectedDifficulty===id?'active':''}" data-action="difficulty" data-level="${id}" aria-pressed="${selectedDifficulty===id}"><strong>${item.label}</strong><small>${item.caption}</small></button>`).join('')}</div></div>`;}
-function introHTML(){return `<main><section class="hero card"><div class="hero-copy"><div class="kicker">🐾 Una aventura argentina</div><h1>¡Se escapó <span class="yellow">Dubi!</span></h1><p>Se abrió una puerta y Dubi salió corriendo. Seguí sus huellas, hablá con la gente y viajá por Argentina hasta encontrarlo.</p><div class="player-registration"><label for="player-name">Tu nombre para el ranking</label><input id="player-name" type="text" maxlength="24" autocomplete="nickname" placeholder="Ej.: Nico" value="${esc(playerName)}"><small>Solo tu nombre. Sin cuenta ni contraseña.</small></div>${difficultyHTML()}<button class="primary" data-action="start" ${startBusy?'disabled':''}>${startBusy?'Registrando partida…':'🐾 ¡Salir a buscarlo!'}</button>${startError?`<p class="rank-error">${esc(startError)}</p>`:''}${state?.status==='playing'?`<button class="secondary intro-resume" data-action="resume">Continuar partida</button>`:''}</div><div class="hero-photo"><img src="${DUBI_PHOTO}" alt="Foto real de Dubi, husky de ojos marrones y pelaje gris y blanco"><div class="photo-tag"><div><strong>🐕 DUBI</strong><br><span>Escapista profesional</span></div><strong>🐾</strong></div></div></section>${rankingHTML()}</main>`;}
+function introHTML(){return `<main><section class="hero card"><div class="hero-copy"><div class="kicker">🐾 Una aventura argentina</div><h1>¡Se escapó <span class="yellow">Dubi!</span></h1><p>Se abrió una puerta y Dubi salió corriendo. Seguí sus huellas, hablá con la gente y viajá por Argentina hasta encontrarlo.</p><div class="player-registration"><label for="player-name">Tu nombre</label><input id="player-name" type="text" maxlength="24" autocomplete="nickname" placeholder="Ej.: Nico" value="${esc(playerName)}"></div>${difficultyHTML()}<button class="primary" data-action="start" ${startBusy?'disabled':''}>${startBusy?'Registrando partida…':'🐾 ¡Salir a buscarlo!'}</button>${startError?`<p class="rank-error">${esc(startError)}</p>`:''}${state?.status==='playing'?`<button class="secondary intro-resume" data-action="resume">Continuar partida</button>`:''}</div><div class="hero-photo"><img src="${DUBI_PHOTO}" alt="Foto real de Dubi, husky de ojos marrones y pelaje gris y blanco"><div class="photo-tag"><div><strong>🐕 DUBI</strong><br><span>Escapista profesional</span></div><strong>🐾</strong></div></div></section>${rankingHTML()}</main>`;}
 function gameHeader(title,desc){return `<div class="game-header"><div><h1>${esc(title)}</h1><p>${esc(desc)}</p></div></div>`;}
 function dialogHTML(b){if(!b)return '';return `<section class="witness-card" id="witness"><div class="witness-top"><div class="avatar portrait">${avatarSVG(b.face)}</div><div><strong>${esc(b.person)}</strong><small>📍 ${esc(b.name)}</small></div></div><div class="witness-body"><p class="quote">${esc(b.intro)}</p>${b.questions.length?`<div class="questions"><h3>Preguntar</h3>${b.questions.map(q=>`<div><button class="question ${hasAsked(q.id)?'asked':''}" data-action="question" data-id="${q.id}" ${hasAsked(q.id)?'disabled':''}><span>${esc(q.label)}</span><span class="cost">${hasAsked(q.id)?'✓':`(+${q.cost} min)`}</span></button>${hasAsked(q.id)?`<p class="answer">«${esc(q.answer)}»</p>`:''}</div>`).join('')}</div>`:''}</div></section>`;}
 function investigationHTML(){const city=loc(state.location),scene=state.scenes[city.id],seen=!!state.lead[city.id];return `<main>${gameHeader(`Buscá a Dubi en ${city.city}`,city.province)}<div class="main-grid"><div><section class="card">${provinceScene(city)}<div class="panel-pad"><h2 class="section-title">¿Dónde investigamos?</h2><div class="building-grid">${scene.buildings.map(b=>`<button class="building ${selected===b.id?'active':''} ${hasVisited(b.id)?'visited':''}" data-action="building" data-id="${b.id}"><span class="emoji">${b.icon}</span><strong>${esc(b.name)}</strong><small>${hasVisited(b.id)?'Visitado':'(+12 min)'}</small></button>`).join('')}</div>${selected?dialogHTML(witnessForCity(city,scene.buildings.find(b=>b.id===selected))):''}</div></section><div class="actions-row">${atFinal()&&seen?`<button class="primary" data-action="finish">❤️ ¡Ahí está Dubi!</button>`:`<button class="primary" data-action="map">🗺️ Viajar</button>`}<button class="secondary" data-action="journal">📔 Pistas</button></div></div></div></main>`;}

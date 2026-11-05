@@ -81,6 +81,44 @@
 .session-new-game{min-height:38px;border:1px solid #54717a;border-radius:11px;background:#153543;color:#d6e8e4;font:inherit;font-size:12px;font-weight:750;padding:7px 13px}
 .session-new-game:hover,.session-new-game:focus-visible{background:#23505b;border-color:#8db3ac}
 @media(max-width:360px){.session-new-game{font-size:11px;padding:7px 10px}}
+
+/* Ranking familiar compartido · entrada simple por apodo · lectura en notebook y celular. */
+.player-registration{width:100%;max-width:430px;margin:0 0 17px}
+.player-registration label{display:block;color:#e3f4ec;font-size:13px;font-weight:850;margin-bottom:7px}
+.player-registration input{box-sizing:border-box;width:100%;min-height:47px;border:1px solid #729396;border-radius:12px;background:#0b2b37;color:#fff;font:inherit;font-size:16px;padding:10px 13px}
+.player-registration input:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
+.player-registration small{display:block;font-size:11px;color:#c2d4d6;margin:5px 0 0}
+.rank-card{margin:16px 0 28px;padding:20px;background:linear-gradient(125deg,#163544,#102a35)}
+.rank-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:9px;margin-bottom:14px}
+.rank-header h2{font-size:21px;margin:0}.rank-sub{font-size:12px;color:#bed3d4;margin:4px 0 0}
+.rank-refresh{border:1px solid #64888a;background:#153743;border-radius:10px;color:#e2f2e9;padding:9px 12px;font:inherit;font-weight:800;font-size:12px}
+.rank-scroll{overflow-x:auto;max-height:420px;overflow-y:auto;border-radius:12px;border:1px solid #54727b}
+.rank-table{border-collapse:collapse;width:100%;min-width:470px;font-size:12px}
+.rank-table th,.rank-table td{padding:11px 9px;text-align:left;border-bottom:1px solid #34525d}
+.rank-table th{background:#214552;color:#d4e9e0;position:sticky;top:0;font-size:11px;white-space:nowrap}
+.rank-table td:last-child,.rank-table th:last-child{font-weight:900;color:#f6d982}
+.rank-table .rank-num{width:28px;color:#a8c8cc;font-weight:900}
+.rank-table tr:last-child td{border-bottom:0}.rank-table tr:nth-child(even){background:#183746}
+.rank-table tr.player-highlight{background:#30534a}
+.rank-message{font-size:13px;color:#c5d9da;padding:10px}
+.rank-error{color:#ffd3ba;font-size:12px;margin-top:8px}
+.rank-score-message{font-weight:800;color:#f8dc8d;margin:13px 0}
+.rank-mobile{display:none}
+@media(max-width:600px){
+ .rank-scroll{display:none}
+ .rank-mobile{display:block;border:1px solid #54727b;border-radius:12px;max-height:460px;overflow-y:auto}
+ .rank-mobile-item{padding:12px;border-bottom:1px solid #34525d}
+ .rank-mobile-item:last-child{border-bottom:0}
+ .rank-mobile-item:nth-child(even){background:#183746}
+ .rank-mobile-item.player-highlight{background:#30534a}
+ .rank-mobile-top{display:flex;align-items:center;gap:9px;justify-content:space-between}
+ .rank-mobile-top strong{font-size:14px;min-width:0;overflow-wrap:anywhere}
+ .rank-mobile-top b{white-space:nowrap;color:#f6d982;font-size:14px}
+ .rank-mobile-item small{display:block;margin-top:6px;font-size:11px;color:#c0d4d5}
+ .rank-mobile .rank-message{margin:0}
+}
+
+@media(max-width:600px){.rank-card{padding:13px}.rank-header h2{font-size:19px}.rank-table{font-size:11px}.rank-table th,.rank-table td{padding:10px 7px}}
 </style>
 </head>
 <body>
@@ -339,7 +377,7 @@ c03|el Jardín Japonés en medio de la ciudad|el Rosedal y los botes de un lago|
 c04|una catedral frente a la plaza que homenajea a la Virgen del Valle|una gruta de peregrinación al pie de las montañas|el tradicional encuentro de tejedores de ponchos|un valle rodeado por el cerro Ambato|las artesanías de tejidos y las festividades religiosas|los caminos serranos que rodean la capital|el paseo junto a las montañas del Ambato|un poncho tejido a mano|una estampita de la Virgen del Valle
 c05|las termas de agua caliente entre cerros secos|un valle desértico con dunas enormes|un recorrido que pasa cerca de montañas de seis mil metros|los baños termales al aire libre|paseos por viñedos de altura y aguas termales|las dunas de arena blanca al pie de la cordillera|una villa de oasis entre cumbres áridas|una toalla para aguas termales|un folleto de dunas y montañas
 c06|un concurso de escultores que trabajan en las calles|monumentos y estatuas repartidos por las veredas|el paseo del río Negro rodeado de árboles|una bienal que reúne escultores de muchos países|plazas con obras de arte al aire libre|una ciudad conocida por tener cientos de esculturas|los lapachos florecidos cerca de los monumentos|un pequeño busto de arcilla|un catálogo de esculturas
-c07|un complejo de baños termales en medio del Chaco|la historia del algodón en los campos chaqueños|los paseos con aguas termales y caminos del monte|una ciudad chaqueña famosa por sus piletas minerales|los viejos galpones vinculados al algodón|un oasis de termas en la llanura del norte|las rutas que conectan las zonas algodoneras|una toalla y sales para baños|un fardo pequeño de algodón
+c07|un parque ecológico con animales y una reserva botánica|la historia del algodón en los campos chaqueños|un museo ferroviario con vagones antiguos restaurados|un parque temático conocido como Ciudad de los Niños|los viejos galpones vinculados al algodón|una casa misteriosa que fue construida en forma de cruz|las rutas que conectan las zonas algodoneras|una toalla y sales para baños|un fardo pequeño de algodón
 c08|el avistaje de ballenas desde la costa|una playa donde las ballenas se acercan a la orilla|el Golfo Nuevo y sus aguas tranquilas|la Península Valdés y los animales marinos|el muelle de una ciudad patagónica junto al mar|las excursiones para ver mamíferos marinos|una costa donde se divisan ballenas sin barco|unos binoculares de avistaje|una guía de fauna marina
 c09|un tren de vapor que circula por la cordillera|un parque de alerces milenarios y lagos|los bosques patagónicos que rodean un viejo ferrocarril|el recorrido de La Trochita por valles andinos|senderos junto a árboles antiquísimos|una ciudad cordillerana con talleres ferroviarios históricos|una excursión entre lagos y bosques de alerces|una mochila de senderismo|un billete para un tren antiguo
 c10|la Manzana Jesuítica y sus edificios coloniales|una ciudad donde se escucha mucho cuarteto|la Cañada atravesando el centro|una universidad que ya tiene más de cuatro siglos|la Reforma Universitaria de 1918|patios coloniales y bares llenos de estudiantes|un paseo histórico junto a un arroyo encauzado|un afiche de baile de cuarteto|un libro sobre la Reforma Universitaria
@@ -384,6 +422,145 @@ const DESTINATION_STORIES=Object.fromEntries(DESTINATION_STORIES_RAW.trim().spli
  const [id,...entries]=row.split('|');
  return [id,{main:entries.slice(0,7),side:entries.slice(7,9)}];
 }));
+// Variedad persistente: la provincia sigue siendo totalmente aleatoria.
+// Las pistas se rotan por CONCEPTO, no sólo por su redacción, con diez partidas de memoria.
+const TOPICS_RAW=`
+c00|lobos,puerto,torreon,lobos,playa,puerto,cine,alfajores,lobos,torreon
+c01|diagonales,diagonales,republica,catedral,museo,estudiantes,futbol,teatro,bosque,diagonales
+c02|caminito,bombonera,tango,bombonera,caminito,quinquela,puente,conventillos,caminito,riachuelo
+c03|rosedal,planetario,jardines,jardines,rosedal,planetario,ferias,ecoparque,bosques,ferias
+c04|virgen,virgen,poncho,virgen,virgen,poncho,ambato,tejidos,montanas,ambato
+c05|termas,termas,montanas,termas,dunas,montanas,termas,viñedos,dunas,oasis
+c06|esculturas,esculturas,esculturas,esculturas,esculturas,rio,bienal,esculturas,esculturas,lapachos
+c07|termas,termas,termas,ecologico,algodon,ferrocarril,parque_ninos,algodon,casa_cruz,algodon
+c08|ballenas,ballenas,ballenas,ballenas,ballenas,golfo,peninsula,muelle,fauna,ballenas
+c09|trochita,tren,alerces,tren,alerces,tren,tren,bosques,tren,lagos
+c10|cuarteto,jesuitica,jesuitica,jesuitica,cuarteto,canada,universidad,reforma,colonia,canada
+c11|cucu,lago,cucu,cucu,teatros,lago,teatros,puente,cerro,verano
+c12|puente,chamame,puente,puente,costanera,carnaval,puente,rio,chamame,puente
+c13|surubi,pesca,surubi,surubi,puerto,festival,barcos,festival,islas,pesca
+c14|tunel,tunel,tunel,tunel,parque,historia,barrancas,tunel,costanera,historia
+c15|carnaval,carnaval,carnaval,carnaval,carnaval,plumas,rio,murgas,carnaval,termas
+c16|costanera,rio,laguna,costanera,laguna,costanera,capital,palmares,rio,laguna
+c17|frontera,puente,frontera,puente,pilcomayo,frontera,compras,asuncion,mercado,pilcomayo
+c18|exodo,exodo,exodo,exodo,plaza,exodo,montanas,gobierno,quebrada,belgrano
+c19|siete_colores,colores,colores,siete_colores,paseo,adobe,mercado,senderos,iglesia,artesanos
+c20|ciervos,caldenes,ciervos,ciervos,laguna,parque,agua,capital,brama,avenidas
+c21|parque,ferrocarril,laguna,parque,ferrocarril,laguna,ferrocarril,campos,parque,ferrocarril
+c22|tinkunaco,tinkunaco,tinkunaco,tinkunaco,religion,chacho,cerros,plaza,penas,tradicion
+c23|cablecarril,cablecarril,cablecarril,cablecarril,famatina,cablecarril,viñedos,mineria,cablecarril,valle
+c24|vendimia,acequias,parque,vendimia,parque,acequias,vino,monumento,acequias,cordillera
+c25|atuel,atuel,atuel,atuel,rafting,dique,oasis,canion,kayak,atuel
+c26|cataratas,garganta,cataratas,cataratas,garganta,coaties,frontera,lanchas,selva,pasarelas
+c27|puente,costanera,puente,puente,costanera,tierra,costanera,parana,costanera,ferias
+c28|confluencia,confluencia,confluencia,confluencia,costa,confluencia,balnearios,isla,limay,bardas
+c29|siete_lagos,lacar,siete_lagos,lacar,siete_lagos,lanin,casas,lacar,bosques,siete_lagos
+c30|chocolate,cerro,centro_civico,chocolate,centro_civico,esqui,cerro,circuito,lago,puerto
+c31|playas,grutas,acantilados,grutas,playas,golfo,acantilados,playas,grutas,grutas
+c32|teleferico,penas,plaza,teleferico,plaza,penas,convento,empanadas,ciudad_linda,cerro
+c33|torrontes,valles,quebrada,torrontes,viñedos,quebrada,garganta,bodegas,anfiteatro,ruta
+c34|sarmiento,sarmiento,sarmiento,sarmiento,dique,sarmiento,valle,sierras,terremoto,vino
+c35|leoncito,observatorios,carrovelismo,carrovelismo,observatorios,leoncito,carrovelismo,cielo,caligasta,observatorios
+c36|sierras,potrero,circuito,parque,circuito,circuito,sierras,dique,sierras,sierras
+c37|microclima,mirador,microclima,microclima,mirador,senderos,arroyos,artesanos,valle,atardecer
+c38|glaciar,glaciar,glaciar,glaciar,glaciar,lago,excursion,barcos,glaciar,glaciar
+c39|fitzroy,trekking,granito,fitzroy,laguna,trekking,bosques,mochileros,fitzroy,capri
+c40|bandera,messi,parana,bandera,messi,parque,puente,peatonal,costanera,bandera
+c41|puente,alfajores,laguna,puente,costanera,alfajores,puente,historia,laguna,puente
+c42|madre_ciudades,chacarera,ciudad_vieja,madre_ciudades,chacarera,rio_dulce,patios,musica,fundacion,historia
+c43|termas,circuito,museo,termas,autodromo,museo,hoteles,lago,motos,motos
+c44|tren,beagle,fin_mundo,beagle,tren,bosques,bahia,pinguinos,ciudad_austral,presidio
+c45|vientos,pesca,cabo,vientos,pesca,cabo,industria,estancias,rio,ciudad
+c46|independencia,1816,jardin_republica,independencia,independencia,jardin_republica,plaza,cabildo,empanadas,congreso
+c47|menhires,quesos,menhires,menhires,quesos,dique,valles,senderos,cumbres,artesanos
+`;
+const MAIN_TOPICS=Object.fromEntries(TOPICS_RAW.trim().split('\n').map(row=>{
+ const [id,values]=row.split('|');return [id,values.split(',')];
+}));
+const SIDE_VARIETY_RAW=`
+c00|una tabla de surf|un balde y una palita de playa|una caña de pescar de mar|una gorra para el sol|un bolso lleno de toallas|una remera con un lobo marino
+c01|un libro de paleontología|una camiseta roja y blanca|una carpeta universitaria|un plano de una ciudad geométrica|una guía de teatros|un libro con dibujos de dinosaurios
+c02|una gorra azul y amarilla|una caja de pinturas de colores|una foto de un viejo puente|unos zapatos de tango|un cuaderno con bocetos de conventillos|una postal de casas pintadas
+c03|una cámara para fotografiar jardines|un mapa de parques urbanos|una entrada a una feria de diseño|una guía de astronomía|un ramo de rosas|una bolsa con plantas de vivero
+c04|un tejido de lana del noroeste|una postal de montañas|un libro sobre fiestas religiosas|un sombrero para el sol serrano|una tela bordada|una guía de peregrinaciones
+c05|una botella de agua para el desierto|una cámara para fotografiar dunas|un frasco con aceitunas|un gorro para aguas termales|un mapa de valles altos|un par de sandalias para termas
+c06|una libreta para dibujar esculturas|una bolsita con herramientas de modelado|un catálogo de arte urbano|un mate con dibujos de lapachos|una cámara para fotografiar estatuas|un folleto de una bienal artística
+c07|una toalla para termas|una bolsa con algodón|un paquete de yerba del norte|una libreta de caminos rurales|una gorra de campo|un mapa de la llanura chaqueña
+c08|unos binoculares marinos|una campera impermeable|una postal con ballenas|un folleto de excursiones por el mar|una cámara con teleobjetivo|una guía de aves costeras
+c09|un pasaje de tren de vapor|una mochila de bosque|una guía de árboles milenarios|un termo para caminatas|una campera para la cordillera|un mapa de lagos patagónicos
+c10|un disco de cuarteto|un libro de historia universitaria|un mapa de edificios coloniales|una remera de un baile|una postal de un antiguo claustro|un folleto de teatros
+c11|un boleto para una comedia teatral|una postal de un reloj gigante|un traje de baño de lago|una gorra para caminatas serranas|una cámara para paseos en lancha|un folleto de espectáculos
+c12|un acordeón para chamamé|una postal de un gran puente|un mapa del río Paraná|un traje de carnaval|una guía de paseos ribereños|un pañuelo de baile
+c13|una caña para pescar surubí|una caja de anzuelos|un salvavidas de lancha|un libro de peces del río|una gorra de pescador|un folleto de un festival de pesca
+c14|una postal de barrancas verdes|una guía de historia argentina|un mapa de dos provincias vecinas|un folleto de paseos por el río|una cámara para fotografiar islas|una gorra de un parque junto al Paraná
+c15|unas plumas de comparsa|un tambor de carnaval|una entrada a un desfile|un folleto de termas|un traje con lentejuelas|una postal de una ribera
+c16|un mapa del río Paraguay|unos binoculares para ver aves|una postal de una laguna|un termo para paseos por la costa|una guía de palmares|una cámara para atardeceres
+c17|una bolsa de compras de frontera|un folleto de cruces internacionales|un mapa del río Pilcomayo|una postal de un puente|un par de botas para bañados|una guía de mercados fronterizos
+c18|una escarapela de Belgrano|una postal de montañas del norte|un libro de historia regional|un poncho de lana|una guía de plazas históricas|un mapa de quebradas
+c19|una bolsita de artesanías|un poncho de colores|una postal de cerros rojos|una guía de mercados andinos|unas alpargatas para senderos|una cámara de paisajes
+c20|unos binoculares para ver ciervos|un libro sobre árboles de caldén|una caña de pescar de laguna|una gorra de campo|una guía de reservas naturales|un mapa de llanuras
+c21|un boleto de ferrocarril|una postal de una laguna|una guía de antiguos talleres|una mochila de caminata|una gorra de campo pampeano|un plano de parques recreativos
+c22|un pañuelo para una fiesta tradicional|un libro del Chacho Peñaloza|una postal de cerros secos|una guía de plazas históricas|una figura de un santo|un sombrero de ala ancha
+c23|un casco de minero|un mapa de una montaña alta|una postal de una vieja mina|una cámara para fotografiar cables|un folleto de viñedos de valle|una guía de estaciones antiguas
+c24|una caja de uvas|un sombrero de vendimia|una postal de la cordillera|un mapa de acequias|una botella vacía de vino|una guía de bodegas
+c25|un remo para navegar un río|un casco de rafting|una postal de cañones rocosos|una guía de embalses|un bolso impermeable|un mapa de un oasis andino
+c26|un piloto para lluvia de cataratas|una remera con una mariposa de selva|una guía de aves de selva|una cámara con protector de agua|un mapa de la triple frontera|una remera con tucanes
+c27|un folleto de mercados junto al río|una bolsa manchada de tierra roja|un mate de madera tallada|una guía de paseos por el río|una cámara para atardeceres|un folleto de ferris
+c28|una guía de senderos de bardas|una tabla para remar|un folleto de un balneario fluvial|una gorra de paseo ribereño|una guía de bardas|un plano de una isla urbana
+c29|un mapa de siete lagos|unas botas para bosque|una postal de un lago andino|una guía de senderismo|un remo para un lago|una campera de montaña
+c30|una caja de chocolates|unos guantes de esquí|una postal de un centro cívico de piedra|un mapa de un lago enorme|una cámara para fotografiar nieve|un folleto de excursiones lacustres
+c31|una sombrilla para playa patagónica|una bolsa con caracoles|unas sandalias de playa|una guía de acantilados|un gorro contra el viento costero|una cámara con fotos de cuevas
+c32|un boleto de teleférico|una caja de empanadas|una guitarra para una peña|una postal de edificios coloniales|un sombrero para paseos por el cerro|un folleto de un mirador
+c33|un mapa de caminos de altura|una guía de bodegas de altura|una postal de quebradas rojizas|una cámara para viñedos|un sombrero de sol de los valles|un mapa de formaciones rocosas
+c34|una postal de una casa antigua|una postal de un dique|un mapa de un valle cordillerano|una guía de museos históricos|un sombrero para el sol de oeste|una botella de vino sanjuanino
+c35|un folleto de observatorios|unos anteojos para mirar estrellas|un casco de carro a vela|un mapa de montañas altas|un abrigo para noches despejadas|una guía de parques astronómicos
+c36|una maqueta de un circuito|una postal de un lago serrano|un mapa de rutas de sierras|un folleto de un circuito de carreras|una botella de agua para caminatas|una cámara de montañas
+c37|unas zapatillas para senderos|una guía de microclimas|una postal de miradores serranos|un mate de montaña|una cámara para paisajes verdes|un folleto de ferias de artesanos
+c38|una campera para glaciares|una cámara para fotografiar témpanos|un boleto de barco lacustre|una postal de hielo azul|un mapa de parques nacionales|un termo para el frío patagónico
+c39|unos bastones de trekking|una mochila de montaña|un mapa de senderos de granito|una postal de picos nevados|unas botas para largas caminatas|una cámara de paisaje cordillerano
+c40|una bandera argentina enrollada|una camiseta de fútbol con el diez|un mapa de un río grande|una postal de un monumento nacional|un bolso para paseo ribereño|un libro sobre Messi
+c41|una caja de alfajores regionales|una postal de un puente colgante|una guía de paseos por lagunas|un mate junto al río|un folleto de historia colonial|una cámara para ver puentes
+c42|un bombo legüero|un disco de chacareras|un libro sobre ciudades coloniales|una postal del río Dulce|un sombrero de folclore|una guía de peñas
+c43|un traje de baño para aguas termales|un casco de carreras de motos|una miniatura de auto|una guía de hoteles con piletas|un mapa de un lago|un folleto de un autódromo
+c44|unos guantes muy abrigados|un boleto de un tren histórico|unos binoculares para ver pingüinos|un mapa de una isla austral|una campera impermeable|una postal de un canal entre montañas
+c45|una campera cortaviento|una caña para pescar truchas|un mapa de una isla austral|una postal de una costa ventosa|un gorro de lana gruesa|un folleto de estancias
+c46|una escarapela de la Independencia|un folleto de peñas del norte|un libro sobre el Congreso de 1816|una postal de una casita blanca|una guía de plazas históricas|un sombrero del norte
+c47|un paquete de quesos artesanales|una postal de piedras antiguas|un mapa de valles verdes|una campera de montaña|una guía de caminatas|una figura de menhir
+`;
+const SIDE_VARIETY=Object.fromEntries(SIDE_VARIETY_RAW.trim().split('\n').map(row=>{
+ const [id,...values]=row.split('|');return [id,values];
+}));
+const CLUE_MEMORY_KEY='dubi-pistas-ultimas-10-v1';
+function readClueMemory(){try{const data=JSON.parse(localStorage.getItem(CLUE_MEMORY_KEY)||'[]');return Array.isArray(data)?data.slice(-10):[];}catch(e){return [];}}
+function rememberClues(game){
+ const main={},sides={};
+ for(const [cityId,plan] of Object.entries(game.cluePlans||{})){
+  main[cityId]=plan.topic;sides[cityId]=plan.sideIds;
+ }
+ const history=readClueMemory();history.push({main,sides});
+ try{localStorage.setItem(CLUE_MEMORY_KEY,JSON.stringify(history.slice(-10)));}catch(e){}
+}
+function chooseLeastRecent(rng,options,used){
+ // Si hay alternativas inéditas en las últimas diez partidas, priorizarlas.
+ const fresh=options.filter(x=>!used.includes(x));
+ if(fresh.length)return pick(rng,fresh);
+ // Si se agotaron, elegir el concepto que hace más partidas no aparece.
+ const age=x=>{const i=used.lastIndexOf(x);return i<0?999:used.length-1-i;};
+ const max=Math.max(...options.map(age));
+ return pick(rng,options.filter(x=>age(x)===max));
+}
+function createCluePlan(rng,city,history){
+ const choices=[...city.hints,...DESTINATION_STORIES[city.id].main];
+ const tags=MAIN_TOPICS[city.id];
+ const priorTopics=history.map(h=>h.main?.[city.id]).filter(Boolean);
+ const topic=chooseLeastRecent(rng,[...new Set(tags)],priorTopics);
+ const main=pick(rng,choices.filter((_,i)=>tags[i]===topic));
+ const pool=[...DESTINATION_STORIES[city.id].side,...SIDE_VARIETY[city.id]];
+ const priorSides=history.flatMap(h=>h.sides?.[city.id]||[]);
+ const first=chooseLeastRecent(rng,pool.map((_,i)=>i),priorSides);
+ const second=chooseLeastRecent(rng,pool.map((_,i)=>i).filter(i=>i!==first),priorSides);
+ return {main,topic,side:[pool[first],pool[second]],sideIds:[first,second]};
+}
 function primaryStory(rng,province,event,clue){
  const who=event.talker.toLowerCase();
  const clueLine=pick(rng,[
@@ -412,14 +589,14 @@ function secondaryStory(rng,province,detail){
  return withAccent(rng,province,line);
 }
 function cityWrongDialog(rng,city){const msg=pick(rng,SAME_PROVINCE);return withAccent(rng,city.province,msg);}
-function createScene(rng,city,isRoute,nextCity,isFinal){
+function createScene(rng,city,isRoute,nextCity,isFinal,cluePlan=null){
  const themed=shuffle(rng,BUILDING_LOCAL[city.province]||['kiosco','cafe','hotel']);
  const picks=[BUILDINGS.find(b=>b[0]===themed[0]),...shuffle(rng,BUILDINGS.filter(b=>b[0]!==themed[0])).slice(0,2)];
  const choices=shuffle(rng,picks);
  const realIndex=isRoute?Math.floor(rng()*3):-1;
  const options=nextCity?[...nextCity.hints,...DESTINATION_STORIES[nextCity.id].main]:[];
- const clue=nextCity?pick(rng,options):null;
- const sideHints=nextCity?shuffle(rng,DESTINATION_STORIES[nextCity.id].side):[];
+ const clue=nextCity?(cluePlan?.main||pick(rng,options)):null;
+ const sideHints=nextCity?(cluePlan?.side||shuffle(rng,DESTINATION_STORIES[nextCity.id].side)):[];
  let nextSide=0;
  const buildings=choices.map((entry,i)=>{
   const [id,name,icon]=entry,p=pick(rng,PEOPLE),face=personFaceCode(rng),lead=i===realIndex;
@@ -483,9 +660,39 @@ function provinceResults(query=''){
  return regions.map(r=>`<section class="region"><h3>${r.name}</h3><div class="province-grid">${provinceCards(r.values)}</div></section>`).join('')||'<p class="muted">No se encontró ese destino.</p>';
 }
 function generateGame(seed,difficulty='facil'){difficulty=validDifficulty(difficulty);const rng=rngFromSeed(seed),routeLength=4+Math.floor(rng()*4);let provinces=shuffle(rng,PROVINCES).slice(0,routeLength);let route=[START.id,...provinces.map(p=>pick(rng,CITIES.filter(c=>c.province===p)).id)];
-const scenes={};for(const place of DESTINATIONS){const i=route.indexOf(place.id);scenes[place.id]=createScene(rng,place,i>=0,i>=0&&i<route.length-1?loc(route[i+1]):null,i===route.length-1);}
+const memory=readClueMemory(),cluePlans={};
+for(let i=0;i<route.length-1;i++){const to=loc(route[i+1]);cluePlans[to.id]=createCluePlan(rng,to,memory);}
+const scenes={};for(const place of DESTINATIONS){const i=route.indexOf(place.id);const next=i>=0&&i<route.length-1?loc(route[i+1]):null;scenes[place.id]=createScene(rng,place,i>=0,next,i===route.length-1,next?cluePlans[next.id]:null);}
 const correctTravel=route.slice(1).reduce((s,to,i)=>s+travelCost(loc(route[i]),loc(to)),0);
-return {version:4,seed,route,scenes,travelChoices:createTravelChoices(seed,route,difficulty),wrongProvinceAlerted:{},difficulty,minutes:gameTimeBudget(route,correctTravel,difficulty),status:'playing',location:START.id,stage:0,visited:{},asked:{},stageVisited:{},stageAsked:{},events:[],lead:{} ,travelCount:0,wrongTravels:0,questionsCount:0,notes:{},started:Date.now()};}
+return {version:4,seed,route,scenes,cluePlans,travelChoices:createTravelChoices(seed,route,difficulty),wrongProvinceAlerted:{},difficulty,minutes:gameTimeBudget(route,correctTravel,difficulty),status:'playing',location:START.id,stage:0,visited:{},asked:{},stageVisited:{},stageAsked:{},events:[],lead:{} ,travelCount:0,wrongTravels:0,questionsCount:0,notes:{},started:Date.now()};}
+const RANKING_ENDPOINT='https://zcaovccogewbhvzaaoso.supabase.co/functions/v1/dubi-ranking';
+const PLAYER_NAME_KEY='dubi-nombre-jugador-v1';
+let playerName='';try{playerName=localStorage.getItem(PLAYER_NAME_KEY)||'';}catch(e){}
+let rankingRows=[],rankingLoaded=false,rankingError='',startBusy=false,startError='',scorePending=false,scoreError='';
+async function rankingRequest(body=null){
+ const response=await fetch(RANKING_ENDPOINT,{
+  method:body?'POST':'GET',cache:'no-store',
+  headers:body?{'Content-Type':'application/json'}:undefined,
+  body:body?JSON.stringify(body):undefined
+ });
+ const data=await response.json().catch(()=>({}));
+ if(!response.ok)throw Error(data.error||'No se pudo conectar con el ranking');
+ return data;
+}
+async function refreshRanking(){
+ try{const data=await rankingRequest();rankingRows=Array.isArray(data.ranking)?data.ranking:[];rankingError='';rankingLoaded=true;}
+ catch(e){rankingError=e.message||'No se pudo cargar la tabla';rankingLoaded=true;}
+ if(screen==='intro')render();
+}
+function rankingHTML(){
+ return `<section class="card rank-card" aria-label="Ranking general de jugadores">
+  <div class="rank-header"><div><h2>🏆 Tabla general</h2><p class="rank-sub">Puntajes de toda la familia · Fácil +25 · Medio +40 · Difícil +80</p></div><button type="button" class="rank-refresh" data-action="refresh-ranking">↻ Actualizar</button></div>
+  <div class="rank-scroll"><table class="rank-table"><thead><tr><th>#</th><th>Jugador</th><th>Partidas jugadas</th><th>Victorias</th><th>Puntos acumulados</th></tr></thead>
+  <tbody>${rankingRows.length?rankingRows.map((p,i)=>`<tr class="${p.nombre.toLocaleLowerCase('es')===playerName.trim().toLocaleLowerCase('es')?'player-highlight':''}"><td class="rank-num">${i+1}</td><td>${esc(p.nombre)}</td><td>${Number(p.partidas_jugadas)||0}</td><td>${Number(p.victorias)||0}</td><td>${Number(p.puntos)||0}</td></tr>`).join(''):`<tr><td colspan="5" class="rank-message">${rankingLoaded?'Todavía no hay partidas registradas. ¡Sé el primero!':'Cargando puntajes…'}</td></tr>`}</tbody></table></div>
+  <div class="rank-mobile">${rankingRows.length?rankingRows.map((p,i)=>`<div class="rank-mobile-item ${p.nombre.toLocaleLowerCase('es')===playerName.trim().toLocaleLowerCase('es')?'player-highlight':''}"><div class="rank-mobile-top"><strong>${i+1}. ${esc(p.nombre)}</strong><b>${Number(p.puntos)||0} puntos</b></div><small>Partidas jugadas: ${Number(p.partidas_jugadas)||0} · Victorias: ${Number(p.victorias)||0}</small></div>`).join(''):`<p class="rank-message">${rankingLoaded?'Todavía no hay partidas registradas. ¡Sé el primero!':'Cargando puntajes…'}</p>`}</div>
+  ${rankingError?`<p class="rank-error">${esc(rankingError)}</p>`:''}
+ </section>`;
+}
 let selectedDifficulty='facil';
 let state=null,screen='intro',selected=null,mapProvince=null,mapQuery='',travelPending=null,travelTimer=null,miniTimer=null,noticeTimer=null,noticeDelay=null;
 function migrateLegacyState(game){
@@ -513,7 +720,38 @@ function fallbackWrong(city,b){let hash=2166136261;for(const letter of `${state.
 function downloadDiagnostic(){if(!state)return;const report={game:'Se escapó Dubi',build:'v5.1',seed:state.seed,difficulty:state.difficulty,stage:state.stage,location:state.location,route:state.route,minutes:state.minutes,notes:state.notes,events:state.events||[],visited:state.stageVisited||{},travelChoices:state.travelChoices||[]};const blob=new Blob([JSON.stringify(report,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const anchor=document.createElement('a');anchor.href=url;anchor.download='dubi-diagnostico.json';document.body.appendChild(anchor);anchor.click();anchor.remove();setTimeout(()=>URL.revokeObjectURL(url),8000);}
 
 function persist(){try{localStorage.setItem(STORAGE_KEY,JSON.stringify({version:4,state}));}catch(e){}}
-function newGame(){removeProvinceNotice();let seed=freshSeed(),game=generateGame(seed,selectedDifficulty),old=state?.route.join('|');for(let tries=0;tries<5&&game.route.join('|')===old;tries++){seed=freshSeed();game=generateGame(seed,selectedDifficulty);}state=game;screen='investigar';selected=null;mapProvince=null;mapQuery='';persist();pushView();sfx('start');render();window.scrollTo(0,0);}
+async function newGame(){
+ if(startBusy)return;
+ const name=playerName.trim();
+ if(!name||Array.from(name).length>24){startError='Escribí tu nombre (hasta 24 caracteres).';render();$('player-name')?.focus();return;}
+ startBusy=true;startError='';render();
+ try{
+  let seed=freshSeed(),game=generateGame(seed,selectedDifficulty),old=state?.route.join('|');
+  for(let tries=0;tries<5&&game.route.join('|')===old;tries++){seed=freshSeed();game=generateGame(seed,selectedDifficulty);}
+  const token=Array.from(crypto.getRandomValues(new Uint8Array(32)),x=>x.toString(16).padStart(2,'0')).join('');
+  const remote=await rankingRequest({action:'start',nombre:name,dificultad:selectedDifficulty,token});
+  if(!remote.partidaId)throw Error('No se pudo registrar la partida');
+  game.remoteGameId=remote.partidaId;game.remoteToken=token;game.playerName=name;game.scoreSubmitted=false;
+  state=game;screen='investigar';selected=null;mapProvince=null;mapQuery='';
+  try{localStorage.setItem(PLAYER_NAME_KEY,name);}catch(e){}
+  rememberClues(game);persist();pushView();sfx('start');window.scrollTo(0,0);
+  void refreshRanking();
+ }catch(e){startError=e.message||'No se pudo iniciar. Probá otra vez.';}
+ finally{startBusy=false;render();}
+}
+async function syncGameScore(){
+ if(scorePending||!state||!state.remoteGameId||state.scoreSubmitted||state.status==='playing')return;
+ scorePending=true;scoreError='';
+ const completed=state;
+ try{
+  const result=await rankingRequest({action:'finish',partidaId:completed.remoteGameId,token:completed.remoteToken,gano:completed.status==='won'});
+  if(!result.registrado)throw Error('No se pudo confirmar el resultado');
+  completed.scoreSubmitted=true;completed.pointsWon=Number(result.puntosGanados)||0;
+  if(state===completed)persist();
+  void refreshRanking();
+ }catch(e){scoreError=e.message||'No se pudo guardar el puntaje';}
+ finally{scorePending=false;if(state===completed&&screen==='fin')render();}
+}
 function pad(n){return String(n).padStart(2,'0')}
 function minutesLabel(min){return `${Math.floor(min/60)} h ${pad(min%60)} min`}
 function shortTime(min){return `${Math.floor(min/60)}h ${pad(min%60)}m`}
@@ -535,7 +773,7 @@ function atFinal(){return inCorrectPlace()&&state.stage===state.route.length-1}
 function currentVisitKey(id){return `${state.stage}|${state.location}|${id}`;}
 function hasVisited(id){return !!state.stageVisited?.[currentVisitKey(id)];}
 function hasAsked(id){return !!state.stageAsked?.[`${state.stage}|${state.location}|${selected||''}|${id}`];}
-function spend(cost){if(!state||state.status!=='playing')return false;state.minutes=Math.max(0,state.minutes-cost);if(state.minutes<=0){state.status='lost';screen='fin';selected=null;sfx('wrong');persist();render();return false;}persist();return true;}
+function spend(cost){if(!state||state.status!=='playing')return false;state.minutes=Math.max(0,state.minutes-cost);if(state.minutes<=0){state.status='lost';screen='fin';selected=null;sfx('wrong');persist();render();void syncGameScore();return false;}persist();return true;}
 function pushView(){history.pushState({dubi:true,screen,selected,mapProvince},'',`#${screen}`);}
 function navigate(name){removeProvinceNotice();removeMini();
  // Al tocar «Viajar» desde la pantalla de ciudades, regresar a las provincias.
@@ -586,11 +824,11 @@ function photoURL(province){const x=PHOTO_INFO[province];return x?'https://commo
 function sceneArt(type){const content=svgScene[type]||svgScene.ciudad;return `<svg viewBox="0 0 800 230" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Paisaje ilustrado argentino">${content}</svg>`;}
 function provinceScene(city){const photo=photoURL(city.province),info=PHOTO_INFO[city.province];return `<div class="scene scenic">${sceneArt(SCENE_TYPES[city.province])}${photo?`<img class="province-photo" src="${photo}" alt="Paisaje de ${esc(city.province)}" decoding="async" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`:''}<div class="scene-label"><small>📍 ${esc(city.province)}</small><strong>${esc(city.city)}</strong></div>${info?`<a class="photo-credit" target="_blank" rel="noopener noreferrer" href="https://commons.wikimedia.org/wiki/File:${encodeURIComponent(info.file)}" title="Autor y licencia de la fotografía">${esc(info.credit)}</a>`:''}</div><p class="province-desc">${esc(city.description)}</p>`;}
 function travel(to){removeProvinceNotice();if(!state||state.status!=='playing'||state.location===to||travelPending||!BY_ID[to]||!availableProvinces().includes(loc(to).province))return;removeMini();travelPending={to,cost:travelCost(loc(state.location),loc(to))};sfx('travel');history.pushState({dubi:true,screen:'viaje',selected:null,mapProvince},'','#viaje');const p=loc(to),reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;const cover=document.createElement('div');cover.id='travel-cover';cover.className='travel-cover';cover.innerHTML=`<div class="travel-sky"><div class="travel-stars"></div><div class="travel-path"></div><span class="travel-vehicle" aria-hidden="true">🚌</span></div><div class="travel-destination"><span>VIAJANDO A</span><h2>${esc(p.city)}</h2><p>${esc(p.province)}</p><small>⏱️ ${shortTime(travelPending.cost)}</small><button class="tiny" data-action="skiptravel">Continuar ›</button></div>`;document.body.appendChild(cover);travelTimer=setTimeout(completeTravel,reduce?500:2100);}
-function completeTravel(){if(!travelPending||!state)return;clearTimeout(travelTimer);const {to,cost}=travelPending,from=state.location;travelPending=null;$('travel-cover')?.remove();state.travelCount++;state.location=to;if(to===state.route[state.stage+1])state.stage++;else state.wrongTravels++;state.minutes=Math.max(0,state.minutes-cost);reportEvent('viaje',{from,to,cost,correct:to===state.route[state.stage]});if(state.minutes<=0){state.status='lost';sfx('wrong');}else{sfx('arrival');}selected=null;screen=state.status==='playing'?'investigar':'fin';mapProvince=null;mapQuery='';persist();history.replaceState({dubi:true,screen,selected:null,mapProvince:null},'','#'+screen);render();window.scrollTo(0,0);}
-function finish(){if(!atFinal()||!state.lead[state.location])return;state.status='won';persist();screen='fin';selected=null;pushView();sfx('win');render();window.scrollTo(0,0);}
+function completeTravel(){if(!travelPending||!state)return;clearTimeout(travelTimer);const {to,cost}=travelPending,from=state.location;travelPending=null;$('travel-cover')?.remove();state.travelCount++;state.location=to;if(to===state.route[state.stage+1])state.stage++;else state.wrongTravels++;state.minutes=Math.max(0,state.minutes-cost);reportEvent('viaje',{from,to,cost,correct:to===state.route[state.stage]});if(state.minutes<=0){state.status='lost';sfx('wrong');}else{sfx('arrival');}selected=null;screen=state.status==='playing'?'investigar':'fin';mapProvince=null;mapQuery='';persist();if(state.status==='lost')void syncGameScore();history.replaceState({dubi:true,screen,selected:null,mapProvince:null},'','#'+screen);render();window.scrollTo(0,0);}
+function finish(){if(!atFinal()||!state.lead[state.location])return;state.status='won';persist();screen='fin';selected=null;pushView();sfx('win');render();window.scrollTo(0,0);void syncGameScore();}
 function header(){return `<header class="topbar"><div class="brand"><div class="brand-mark">🐾</div><div><div class="brand-title">¡Se escapó Dubi!</div><div class="brand-sub">Aventura por Argentina</div></div></div><div class="top-stat">${state?`<div class="time-compact ${state.minutes<8*60?'low':''}"><small>Tiempo</small><strong>${shortTime(state.minutes)}</strong></div>`:''}<button class="icon-btn" data-action="sound" aria-label="${soundEnabled?'Silenciar sonidos':'Activar sonidos'}">${soundEnabled?'🔊':'🔇'}</button></div></header>`;}
 function difficultyHTML(){return `<div class="difficulty-pick"><span class="difficulty-title">Dificultad</span><div class="difficulty-grid" role="group" aria-label="Dificultad de la partida">${Object.entries(DIFFICULTIES).map(([id,item])=>`<button type="button" class="difficulty-choice ${selectedDifficulty===id?'active':''}" data-action="difficulty" data-level="${id}" aria-pressed="${selectedDifficulty===id}"><strong>${item.label}</strong><small>${item.caption}</small></button>`).join('')}</div></div>`;}
-function introHTML(){return `<main><section class="hero card"><div class="hero-copy"><div class="kicker">🐾 Una aventura argentina</div><h1>¡Se escapó <span class="yellow">Dubi!</span></h1><p>Se abrió una puerta y Dubi salió corriendo. Seguí sus huellas, hablá con la gente y viajá por Argentina hasta encontrarlo.</p>${difficultyHTML()}<button class="primary" data-action="start">🐾 ¡Salir a buscarlo!</button>${state?.status==='playing'?`<button class="secondary intro-resume" data-action="resume">Continuar partida</button>`:''}</div><div class="hero-photo"><img src="${DUBI_PHOTO}" alt="Foto real de Dubi, husky de ojos marrones y pelaje gris y blanco"><div class="photo-tag"><div><strong>🐕 DUBI</strong><br><span>Escapista profesional</span></div><strong>🐾</strong></div></div></section></main>`;}
+function introHTML(){return `<main><section class="hero card"><div class="hero-copy"><div class="kicker">🐾 Una aventura argentina</div><h1>¡Se escapó <span class="yellow">Dubi!</span></h1><p>Se abrió una puerta y Dubi salió corriendo. Seguí sus huellas, hablá con la gente y viajá por Argentina hasta encontrarlo.</p><div class="player-registration"><label for="player-name">Tu nombre para el ranking</label><input id="player-name" type="text" maxlength="24" autocomplete="nickname" placeholder="Ej.: Nico" value="${esc(playerName)}"><small>Solo tu nombre. Sin cuenta ni contraseña.</small></div>${difficultyHTML()}<button class="primary" data-action="start" ${startBusy?'disabled':''}>${startBusy?'Registrando partida…':'🐾 ¡Salir a buscarlo!'}</button>${startError?`<p class="rank-error">${esc(startError)}</p>`:''}${state?.status==='playing'?`<button class="secondary intro-resume" data-action="resume">Continuar partida</button>`:''}</div><div class="hero-photo"><img src="${DUBI_PHOTO}" alt="Foto real de Dubi, husky de ojos marrones y pelaje gris y blanco"><div class="photo-tag"><div><strong>🐕 DUBI</strong><br><span>Escapista profesional</span></div><strong>🐾</strong></div></div></section>${rankingHTML()}</main>`;}
 function gameHeader(title,desc){return `<div class="game-header"><div><h1>${esc(title)}</h1><p>${esc(desc)}</p></div></div>`;}
 function dialogHTML(b){if(!b)return '';return `<section class="witness-card" id="witness"><div class="witness-top"><div class="avatar portrait">${avatarSVG(b.face)}</div><div><strong>${esc(b.person)}</strong><small>📍 ${esc(b.name)}</small></div></div><div class="witness-body"><p class="quote">${esc(b.intro)}</p>${b.questions.length?`<div class="questions"><h3>Preguntar</h3>${b.questions.map(q=>`<div><button class="question ${hasAsked(q.id)?'asked':''}" data-action="question" data-id="${q.id}" ${hasAsked(q.id)?'disabled':''}><span>${esc(q.label)}</span><span class="cost">${hasAsked(q.id)?'✓':`(+${q.cost} min)`}</span></button>${hasAsked(q.id)?`<p class="answer">«${esc(q.answer)}»</p>`:''}</div>`).join('')}</div>`:''}</div></section>`;}
 function investigationHTML(){const city=loc(state.location),scene=state.scenes[city.id],seen=!!state.lead[city.id];return `<main>${gameHeader(`Buscá a Dubi en ${city.city}`,city.province)}<div class="main-grid"><div><section class="card">${provinceScene(city)}<div class="panel-pad"><h2 class="section-title">¿Dónde investigamos?</h2><div class="building-grid">${scene.buildings.map(b=>`<button class="building ${selected===b.id?'active':''} ${hasVisited(b.id)?'visited':''}" data-action="building" data-id="${b.id}"><span class="emoji">${b.icon}</span><strong>${esc(b.name)}</strong><small>${hasVisited(b.id)?'Visitado':'(+12 min)'}</small></button>`).join('')}</div>${selected?dialogHTML(witnessForCity(city,scene.buildings.find(b=>b.id===selected))):''}</div></section><div class="actions-row">${atFinal()&&seen?`<button class="primary" data-action="finish">❤️ ¡Ahí está Dubi!</button>`:`<button class="primary" data-action="map">🗺️ Viajar</button>`}<button class="secondary" data-action="journal">📔 Pistas</button></div></div></div></main>`;}
@@ -599,16 +837,16 @@ function mapHTML(){if(mapProvince){const cities=CITIES.filter(c=>c.province===ma
 const showSearch=availableProvinces().length>10;
 return `<main>${gameHeader('¿A dónde viajamos?','Elegí una provincia')}${showSearch?`<input class="search" id="province-filter" placeholder="🔎 Buscar provincia o ciudad" aria-label="Buscar provincia o ciudad" autocomplete="off" value="${esc(mapQuery)}">`:''}<div id="provinces">${provinceResults(mapQuery)}</div></main>`;}
 function journalHTML(){const lines=[];for(let i=0;i<state.route.length;i++){const id=state.route[i],scene=state.scenes[id];if(state.notes?.[id])lines.push(state.notes[id]);for(const b of scene?.buildings||[]){const key=`${i}|${id}|${b.id}`;if(state.sideNotes?.[key])lines.push(state.sideNotes[key]);}}return `<main>${gameHeader('Mis pistas','')}<section class="card"><div class="panel-pad"><div class="simple-clues">${lines.length?lines.map(note=>`<p>${esc(note)}</p>`).join(''):'<p class="muted">Todavía no anotaste nada.</p>'}</div><button class="diag-download" data-action="diagnostic">⬇ Descargar diagnóstico</button></div></section></main>`;}
-function endHTML(){const won=state.status==='won';return `<main><section class="end"><div class="kicker">${won?'¡Misión cumplida!':'El reloj llegó a cero'}</div><img src="${DUBI_PHOTO}" alt="Dubi, el husky protagonista"><h1>${won?'🐾 ¡Encontraste a Dubi!':'🐕 ¡Dubi sigue de paseo!'}</h1><p>${won?'Después de recorrer medio país, ahí está: moviendo la cola y con esa cara de «yo no hice nada». ¡A casa, Dubi!':'Esta vez se acabó el tiempo. Pero Dubi está bien: alguien lo vio descansando en un lugar seguro. ¡Intentá de nuevo!'}</p><div class="end-stats"><div><strong>${state.stage+1}/${state.route.length}</strong><small>Paradas</small></div><div><strong>${state.questionsCount}</strong><small>Preguntas</small></div><div><strong>${state.wrongTravels}</strong><small>Desvíos</small></div></div>${won?`<p style="color:var(--yellow);font-weight:900">⏱️ Te sobraron ${minutesLabel(state.minutes)}.</p>`:''}<button class="primary" data-action="setup">🐾 Otra escapada</button></section></main>`;}
+function endHTML(){const won=state.status==='won';return `<main><section class="end"><div class="kicker">${won?'¡Misión cumplida!':'El reloj llegó a cero'}</div><img src="${DUBI_PHOTO}" alt="Dubi, el husky protagonista"><h1>${won?'🐾 ¡Encontraste a Dubi!':'🐕 ¡Dubi sigue de paseo!'}</h1><p>${won?'Después de recorrer medio país, ahí está: moviendo la cola y con esa cara de «yo no hice nada». ¡A casa, Dubi!':'Esta vez se acabó el tiempo. Pero Dubi está bien: alguien lo vio descansando en un lugar seguro. ¡Intentá de nuevo!'}</p><div class="end-stats"><div><strong>${state.stage+1}/${state.route.length}</strong><small>Paradas</small></div><div><strong>${state.questionsCount}</strong><small>Preguntas</small></div><div><strong>${state.wrongTravels}</strong><small>Desvíos</small></div></div>${won?`<p style="color:var(--yellow);font-weight:900">⏱️ Te sobraron ${minutesLabel(state.minutes)}.</p>`:''}${state.remoteGameId?`<p class="rank-score-message">${won?`🏆 +${{facil:25,medio:40,dificil:80}[state.difficulty]} puntos para ${esc(state.playerName||playerName)}`:'Tu partida cuenta como jugada en el ranking.'} ${state.scoreSubmitted?'✓ Registrado':scorePending?'· Guardando…':'· Pendiente de confirmar'}</p>${scoreError?`<p class="rank-error">${esc(scoreError)}</p><button class="secondary" data-action="retry-score">Reintentar guardar</button>`:''}`:''}<button class="primary" data-action="setup">🐾 Otra escapada</button></section></main>`;}
 function dockHTML(){if(!state||state.status!=='playing'||screen==='intro')return '';return `<nav class="dock" aria-label="Navegación del juego"><button class="${screen==='investigar'?'sel':''}" data-action="investigar"><span class="di">🏪</span> Investigar</button><button class="${screen==='mapa'?'sel':''}" data-action="map"><span class="di">🗺️</span> Viajar</button><button class="${screen==='bitacora'?'sel':''}" data-action="journal"><span class="di">📔</span> Pistas</button></nav>`;}
 function render(){let out=header();if(state?.status==='playing'&&screen!=='intro'){out+='<div class="session-actions"><button type="button" class="session-new-game" data-action="setup">↻ Iniciar nuevo juego</button></div>';}if(screen==='intro'||!state){out+=introHTML();}else if(state.status!=='playing'){out+=endHTML();}else if(screen==='mapa'){out+=mapHTML();}else if(screen==='bitacora'){out+=journalHTML();}else{out+=investigationHTML();}out+=dockHTML();$('app').innerHTML=out;}
 window.addEventListener('popstate',e=>{removeMini();removeProvinceNotice();if(travelPending){clearTimeout(travelTimer);travelPending=null;$('travel-cover')?.remove();}const prev=e.state;if(prev?.dubi){screen=prev.screen==='viaje'?'mapa':prev.screen;selected=screen==='investigar'?prev.selected||null:null;mapProvince=screen==='mapa'?prev.mapProvince||null:null;}else{screen=state?'investigar':'intro';selected=null;mapProvince=null;history.replaceState({dubi:true,screen,selected,mapProvince},'','#'+screen);}render();window.scrollTo(0,0);});
-document.addEventListener('click',e=>{const btn=e.target.closest('[data-action]');if(!btn||btn.disabled)return;const act=btn.dataset.action;if(act==='sound'){soundEnabled=!soundEnabled;try{localStorage.setItem('se-dubi-sound',soundEnabled?'on':'off');}catch(e){}if(soundEnabled)sfx('click');render();return;}if(act==='difficulty'){selectedDifficulty=validDifficulty(btn.dataset.level);sfx('click');render();return;}if(act==='setup'){removeProvinceNotice();screen='intro';selected=null;mapProvince=null;pushView();sfx('click');render();window.scrollTo(0,0);return;}if(act==='start'){if(state?.status==='playing'&&!window.confirm('¿Iniciar una partida nueva? Se reemplazará el progreso de la partida actual.'))return;newGame();return;}if(act==='resume'){screen='investigar';selected=null;pushView();render();return;}if(act==='building'){revealBuilding(btn.dataset.id);return;}if(act==='question'){askQuestion(btn.dataset.id);return;}if(act==='province'){chooseProvince(btn.dataset.to);return;}if(act==='travel'){travel(btn.dataset.to);return;}if(act==='skiptravel'){completeTravel();return;}if(act==='dismisswrong'){removeProvinceNotice();return;}if(act==='diagnostic'){downloadDiagnostic();return;}if(act==='finish'){finish();return;}if(act==='map'){navigate('mapa');return;}if(act==='investigar'){navigate('investigar');return;}if(act==='journal'){navigate('bitacora');return;}});
+document.addEventListener('click',e=>{const btn=e.target.closest('[data-action]');if(!btn||btn.disabled)return;const act=btn.dataset.action;if(act==='sound'){soundEnabled=!soundEnabled;try{localStorage.setItem('se-dubi-sound',soundEnabled?'on':'off');}catch(e){}if(soundEnabled)sfx('click');render();return;}if(act==='refresh-ranking'){void refreshRanking();return;}if(act==='retry-score'){void syncGameScore();return;}if(act==='difficulty'){selectedDifficulty=validDifficulty(btn.dataset.level);sfx('click');render();return;}if(act==='setup'){removeProvinceNotice();screen='intro';selected=null;mapProvince=null;pushView();sfx('click');render();window.scrollTo(0,0);return;}if(act==='start'){if(state?.status==='playing'&&!window.confirm('¿Iniciar una partida nueva? Se reemplazará el progreso de la partida actual.'))return;newGame();return;}if(act==='resume'){screen='investigar';selected=null;pushView();render();return;}if(act==='building'){revealBuilding(btn.dataset.id);return;}if(act==='question'){askQuestion(btn.dataset.id);return;}if(act==='province'){chooseProvince(btn.dataset.to);return;}if(act==='travel'){travel(btn.dataset.to);return;}if(act==='skiptravel'){completeTravel();return;}if(act==='dismisswrong'){removeProvinceNotice();return;}if(act==='diagnostic'){downloadDiagnostic();return;}if(act==='finish'){finish();return;}if(act==='map'){navigate('mapa');return;}if(act==='investigar'){navigate('investigar');return;}if(act==='journal'){navigate('bitacora');return;}});
 document.addEventListener('pointerdown',e=>{if(e.target.closest('#wrong-province-notice'))removeProvinceNotice();});
-document.addEventListener('input',e=>{if(e.target.id==='province-filter'){
+document.addEventListener('input',e=>{if(e.target.id==='player-name'){playerName=e.target.value;try{localStorage.setItem(PLAYER_NAME_KEY,playerName);}catch(err){}return;}if(e.target.id==='province-filter'){
  mapQuery=e.target.value;const box=$('provinces');if(box)box.innerHTML=provinceResults(mapQuery);
 }});
-state=stored();if(state){selectedDifficulty=validDifficulty(state.difficulty);screen=state.status==='playing'?'investigar':'fin';history.replaceState({dubi:true,screen:'intro',selected:null,mapProvince:null},'','#inicio');pushView();}else{screen='intro';history.replaceState({dubi:true,screen:'intro',selected:null,mapProvince:null},'','#inicio');}render();
+state=stored();if(state){selectedDifficulty=validDifficulty(state.difficulty);screen=state.status==='playing'?'investigar':'fin';history.replaceState({dubi:true,screen:'intro',selected:null,mapProvince:null},'','#inicio');pushView();}else{screen='intro';history.replaceState({dubi:true,screen:'intro',selected:null,mapProvince:null},'','#inicio');}render();void refreshRanking();if(state&&state.status!=='playing'&&state.remoteGameId&&!state.scoreSubmitted)void syncGameScore();
 
 </script>
 </body>
